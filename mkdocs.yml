@@ -1,0 +1,7 @@
+site_name: Owl
+nav:
+    - Home: index.md
+    - Core: core.md
+    - Adapters: adapters.md
+theme:
+  name: windmill
