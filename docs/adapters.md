@@ -1,24 +1,24 @@
-# < PGA Mapper>
+# Owl Adapter
 
 ## 1. Introduccion
 
-PGA Mapper es una herramienta capaz de cargar documentos planos en objetos .Net mediante un archivo de configuración (PGA Input Config), también provee los métodos necesarios para una vez  teniendo los objetos .Net retornar a la cadena original del documento plano.
-Es importante mencionar que PGA Mapper es sensible a mayúsculas y minúsculas por lo cual usted deberá tener cuidado cuando realice configuraciones.
+Owl Adapter es una herramienta capaz de cargar documentos planos en objetos .Net mediante un archivo de configuración (Owl Input Config), también provee los métodos necesarios para una vez  teniendo los objetos .Net retornar a la cadena original del documento plano.
+Es importante mencionar que Owl Adapter es sensible a mayúsculas y minúsculas por lo cual usted deberá tener cuidado cuando realice configuraciones.
 
-## 2. Estructura del PGA
+## 2. Estructura del Owl
 
-Para poder trabajar con PGA Mapper se requiere lo siguiente: 
+Para poder trabajar con Owl Adapter se requiere lo siguiente: 
 
- - ***PGA Input Config***: En este archivo se define la estructura de
+ - ***Owl Input Config***: En este archivo se define la estructura de
    entrada, este archivo se configura con la sintaxis XPML (explicada
    más adelante).
    
- - ***InputConfiguration***: Clase donde se carga el PGA Input Config.  
+ - ***InputConfiguration***: Clase donde se carga el Owl Input Config.  
  
  - ***Document***: Clase base para los documentos, se debe seleccionar de
    acuerdo al tipo de documento de entrada (EDIDocument, ANSIDocument).
 
-### 2.1 PGA  Input Config
+### 2.1 Owl  Input Config
   
 En este archivo es donde se define la estructura del archivo a leer, el siguiente ejemplo muestra un archivo de configuración:
 
@@ -59,9 +59,9 @@ Clase base para los documentos, se debe seleccionar de acuerdo al tipo de docume
 
 # 3. XPML
 
-El XPML (eXtensible PGA Markup Language / Lenguaje Extensible de Marcado para PGA) es un lenguaje de PGA para configurar los PGA Config permitiendo realizar configuraciones más robustas y con más opciones, se basa en XML. El lenguaje fue introducido a partir de la versión 2.0 de PGA. 
+El XPML (eXtensible Owl Markup Language / Lenguaje Extensible de Marcado para Owl) es un lenguaje de Owl para configurar los Owl Config permitiendo realizar configuraciones más robustas y con más opciones, se basa en XML. El lenguaje fue introducido a partir de la versión 2.0 de Owl. 
 
-La sintaxis de XPML se utiliza para configurar las propiedades de un determinado objeto y se puede realizar de la siguiente forma para los PGA Input Config:
+La sintaxis de XPML se utiliza para configurar las propiedades de un determinado objeto y se puede realizar de la siguiente forma para los Owl Input Config:
 
 |TIPO|EJEMPLO|
 |--|--|
@@ -69,19 +69,19 @@ La sintaxis de XPML se utiliza para configurar las propiedades de un determinado
 
 # 4. Manejo de Excepciones
 
-PGA Mapper valida el archivo a cargar con el PGA Input Config, dentro de estas validaciones se puede generar la siguiente excepción: 
+Owl Adapter valida el archivo a cargar con el Owl Input Config, dentro de estas validaciones se puede generar la siguiente excepción: 
 
- - PGAMapperException.
+ - OwlAdapterException.
 
  Las excepción da información detallada de en qué parte del proceso se generó el error para su pronta corrección.
  
- ### 4.1 PGAMapperException 
+ ### 4.1 OwlAdapterException 
  
  Excepción que se produce cuando se presenta algún error en la carga del documento, en caso de que el error sea porque el documento no cumple con la estructura configurada, en el mensaje se puede obtener la posición donde se produjo el error.
 
-# 5. Formatos PGA Mapper
+# 5. Formatos Owl Adapter
 
-PGA Mapper provee algunos formatos de entrada para la carga de los datos.
+Owl Adapter provee algunos formatos de entrada para la carga de los datos.
 
 ### 5.1 Configuración General 
 
@@ -124,7 +124,7 @@ Para acceder a las secciones cargadas dentro del objeto se puede realizar de las
 
  ### 5.2 EDI
  
- Nombre dll: Carvajal.SI.PGA.Mapper.EDI.dll 
+ Nombre dll: Carvajal.SI.Owl.Adapter.EDI.dll 
 Define un archivo con formato EDI, la configuración se realiza de la siguiente forma: 
 
  - Seccion: El nombre de la sección debe ser el nombre del segmento
@@ -147,7 +147,7 @@ Ejemplo de la configuración:
 
 ### 5.3 ANSI
 
-Nombre dll: Carvajal.SI.PGA.Mapper.ANSI.dll Define un archivo con formato ANSI, la configuración se realiza de la siguiente forma: 
+Nombre dll: Carvajal.SI.Owl.Adapter.ANSI.dll Define un archivo con formato ANSI, la configuración se realiza de la siguiente forma: 
 
  - Seccion: El nombre de la sección debe ser el nombre del segmento
    ANSI. 
@@ -173,7 +173,7 @@ Para carga un documento se realiza de la siguiente forma:
 
 ### 5.4 Generic Flat File Nombre dll:
 
- Carvajal.SI.PGA.Mapper.GenericFlatFile.dll Define un archivo genérico con formato plano, la configuración se realiza de la siguiente forma:
+ Carvajal.SI.Owl.Adapter.GenericFlatFile.dll Define un archivo genérico con formato plano, la configuración se realiza de la siguiente forma:
  
  - Seccion: El nombre de la sección debe ser el identificador de la
    sección, es decir el valor del primer campo.
@@ -231,7 +231,7 @@ Para carga un documento se realiza de la siguiente forma:
 
 ## 6. Splitters 
 
-PGA Mapper provee métodos para dividir el archivo cuando contiene múltiples documentos.
+Owl Adapter provee métodos para dividir el archivo cuando contiene múltiples documentos.
 
  ### 6.1 EDI 
 
