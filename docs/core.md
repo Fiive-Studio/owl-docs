@@ -715,6 +715,7 @@ La sintaxis es:
         - La etiqueta Valor2 lleva el tipo de comparación a realizar, son soportados “Igual” y “Diferente” para valores alfanuméricos y “Mayor”, “Menor”, “MayorIgual” y “MenorIgual” para valores numéricos.
 
 Configuración a nivel de Elemento:
+
 | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
 |Nombre |String  |X||Nombre del Elemento|
@@ -842,7 +843,7 @@ Si se requiere modificar solo el comportamiento de un solo elemento se configura
 
  Define un archivo plano de salida, adicional a la configuración estándar soporta los siguientes atributos. Configuración a nivel de Sección:
    
-   | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
+| **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
 |Separador |String  |X|X|Separador utilizado para separar los elementos|
 |QuitarSeparadoresFinal |Boolean |X|X|Indica si se quitan los separadores al final de la sección|
@@ -853,8 +854,7 @@ Define un EDI de salida, adicional a la configuración estándar soporta los sig
 
 Configuración a nivel de Estructura:
    
-  
- | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
+| **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
 |SeparadorSubElementos|Char  |X|X|Separador de subelementos|
 |SeparadorElementos |Char |X|X|Separador de elementos|
@@ -871,6 +871,7 @@ Para EDIOutput son de suma importancia los nombres que se coloquen a las Seccion
 Define un ANSI de salida, adicional a la configuración estándar soporta los siguientes atributos.
 
 Configuración a nivel de Estructura:
+
   | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
 |SeparadorElementos|Char|X|X|Separador de elementos|
@@ -900,6 +901,7 @@ Configuración a nivel de Sección:
 |TipoEtiqueta|Enum (Compuesta, Simple, Apertura, Cierre, Comentario y CData)|X|X|Tipo de etiqueta Xml que se va a generar, por defecto es “Compuesta”|
 
 Configuración a nivel de Elemento:
+
  | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
 |TipoElementoXml|Enum (Comentario y CData)|X|X|Tipo de etiqueta Xml que se va a generar, por defecto es “Compuesta”|
@@ -911,11 +913,13 @@ Configuración a nivel de Elemento:
 Define un SQL de salida, adicional a la configuración estándar soporta los siguientes atributos.
 
 Configuración a nivel de Sección:
+
  | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
 |TipoSQL|Enum (Select, Insert, Update y Delete)|X|X|Tipo de SQL que se va a generar, por defecto es “Select”|
 
 Configuración a nivel de Elemento:
+
  | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
 |TipoElementoSQL|Enum (Select y Where)|X|X|Indica si el elemento hace parte del Select o del Where, no apica para Insert. - Para Delete todos los elementos son Where - Para Update solo aplica Where, los demás campos son los que se actualicen.|
@@ -936,10 +940,9 @@ El Json se define de la siguiente forma:
 
 Teniendo en cuenta que muchas configuraciones son muy similares y muchas veces solo se cambia el valor de un campo o una sección, Owl brinda la posibilidad de que una estructura de salida pueda heredar de otra estructura de salida, para realizar esto se debe hacer lo siguiente:  
 
- -  Tener una configuración Base.
- - 
-
-    <Estructura Id="Principal" Itera="EFACT_D98B_ORDERS">
+Tener una configuración Base.
+ 
+	<Estructura Id="Principal" Itera="EFACT_D98B_ORDERS">
      <Seccion Nombre="Encabezado" Separador="|">
      <Elemento Nombre="c1" Predeterminado="1" Longitud="2" />
      <Elemento Nombre="emisor" Buscar="NADLoop1/NAD[@NAD='BY']/C082/@C08201" />
@@ -958,8 +961,7 @@ Teniendo en cuenta que muchas configuraciones son muy similares y muchas veces s
 
 Es obligatorio que la estructura que va a servir como Base tenga configurado el atributo “Id” de lo contrario el Owl genera una excepción.
 
- - Crear la estructura Hija
- - 
+Crear la estructura Hija
  
      <Estructura Id="Secundario" Base="Principal">
      <Seccion Nombre="Encabezado" Separador="@">
@@ -977,13 +979,15 @@ Es obligatorio que la estructura hija tenga configurado los atributos “Id” y
 
 Las opciones para reemplazar secciones y elementos en la configuración hija son las siguientes:
 
- - Si solo se quieren agregar o actualizar atributos se coloca el elemento o sección con los nuevos valores
- - Si se desea cambiar la ubicación de la sección o un elemento se hace por medio de los atributos AntesDe y DespuesDe, donde se coloca el id de la sección o elemento que servirá como referencia para dar la nueva ubicación.
- - Si se agrega una nueva sección por defecto se coloca al final, en caso de requerir dar ubicación se utilizan los atributos AntesDe o DespuesDe
- - Si se desea sobreescribir la sección o el elemento completo en la configuración hija se coloca el atributo “Sobreescribir” con valor “Si” Ejemplo:
- - 
+Si solo se quieren agregar o actualizar atributos se coloca el elemento o sección con los nuevos valores
 
-      <Elemento Nombre="c1" Sobreescribir=”Si” />
+Si se desea cambiar la ubicación de la sección o un elemento se hace por medio de los atributos AntesDe y DespuesDe, donde se coloca el id de la sección o elemento que servirá como referencia para dar la nueva ubicación.
+
+Si se agrega una nueva sección por defecto se coloca al final, en caso de requerir dar ubicación se utilizan los atributos AntesDe o DespuesDe
+
+Si se desea sobreescribir la sección o el elemento completo en la configuración hija se coloca el atributo “Sobreescribir” con valor “Si” Ejemplo:
+ 
+	<Elemento Nombre="c1" Sobreescribir=”Si” />
 
 
 ## 8. Hola Mundo
@@ -1094,4 +1098,4 @@ Los pasos para generar la salida son:
     catch (OwlException e)
     {
     }
-	
+
