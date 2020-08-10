@@ -1,17 +1,34 @@
-# Welcome to MkDocs
+# Owl
 
-For full documentation visit [mkdocs.org](https://mkdocs.org).
+![Fiive](https://fiivestudio.com/wp-content/uploads/2020/06/Fiive-Open-Source_2.png)
 
-## Commands
+## Introduccion
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
+Owl es una herramienta capaz de hacer transformaciones hacia diferentes tipos de formatos utilizando como base el lenguaje Xml. 
 
-## Project layout
+Los formatos soportados nativamente por el Framework son:
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+**Formatos de Entrada:**
+
+De forma nativa:
+
+- Xml
+
+Por medio de adaptadores:
+
+- Archivo Plano
+- EDI
+- ANSI
+
+**Formatos de Salida:**
+
+- Archivo Plano
+- Xml
+- EDI
+- ANSI
+- Json
+- Sql
+
+## Trabajando con el Framework
+
+Si quieres ver el código fuente del proyecto revisalo en [Framework Owl](https://github.com/Fiive-Studio/owl) donde podrás ver los pasos para instalar el paquete en tus proyectos

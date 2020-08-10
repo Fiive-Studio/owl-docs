@@ -2,13 +2,11 @@
 
 ## 1. Introduccion
 
-Owl nace a partir de la necesidad de crear una herramienta capaz de hacer transformaciones de datos comunes y que son repetitivas para el área sin que implique tener que recompilar o reescribir el objeto cada vez que haya cambios en estándares o se agreguen campos. 
+Owl provee las clases con los tipos de datos comunes, pero a su vez unas interfaces para que se puedan implementar procesamiento de datos personalizados definiendo un formato Xml al cual se deben ajustar para poder integrase a la herramienta.
 
-Owl provee las clases con los tipos de datos comunes, pero a su vez unas interfaces para que se puedan implementar procesamiento de datos personalizados definiendo un formato XML al cual se deben ajustar para poder integrase a la herramienta.
+Owl utiliza como base el lenguaje Xml y lo extiende a través de su propio lenguaje llamado XOML (eXtensible Owl Markup Language), este lenguaje se utiliza para configurar los Owl Output Config permitiendo realizar configuraciones más robustas y con más opciones.
 
-Owl utiliza su propio lenguaje llamado XPML (eXtensible Owl Markup Language), este lenguaje se utiliza para configurar los Owl Output Config permitiendo realizar configuraciones más robustas y con más opciones, se basa en XML. El lenguaje fue introducido a partir de la versión 2.0 de Owl. 
-
-Es importante mencionar que Owl es sensible a mayúsculas y minúsculas por lo cual usted deberá tener cuidado cuando realice configuraciones.
+Es importante mencionar que Owl es sensible a mayúsculas y minúsculas.
 
 ## 2. Estructura del Owl
 
@@ -16,9 +14,10 @@ Para poder trabajar con Owl se requiere lo siguiente:
 
  - Owl Output Config: En este archivo se define la estructura de salida,
    con sus validaciones y mapeo del documento, este archivo se configura
-   con la sintaxis XPML (explicada más adelante).
+   con la sintaxis XOML.
    
- - OwlSettings: Estructura que nos define las configuraciones del mapeo como: 
+ - OwlSettings: Estructura que nos define las configuraciones de la transformación
+
  o Ruta u objeto del Owl Output Config.
  o Ruta u objeto del Owl Output Config base. 
  o Objeto de referencias cruzadas. 
@@ -75,7 +74,7 @@ Interfaz para las estructuras de salida, define métodos para la generación de 
 
 ### 2.5 OwlHandler.
 
-Clase que se encarga de controlar todo el proceso de transformación de datos, para este proceso se crea un objeto del tipo de la clase pasándole el objeto de PGSettings y se invoican sus métodos LoadConfigMap, LoadInput y WriteOutput para iniciar el proceso de transformación:
+Clase que se encarga de controlar todo el proceso de transformación de datos, para este proceso se crea un objeto del tipo de la clase pasándole el objeto de OwlSettings y se invoican sus métodos LoadConfigMap, LoadInput y WriteOutput para iniciar el proceso de transformación:
 
     Owl = new OwlHandler(settings); Owl.LoadConfigMap(); Owl.LoadInput(new XmlInput(@"D:\ruta\20266352337-01-F001-00000110.xml")); foreach (GenericOutputValue value in Owl.WriteOutput(new FlatFileOutput())) { // Proceso }
 
@@ -85,22 +84,22 @@ Adicional si se requiere generar una instancia (archivo de muestra) de la config
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--|
 |                                                                                                                                                                                             
 
-## 3. XPML
+## 3. XOML
 
-El XPML (eXtensible Owl Markup Language / Lenguaje Extensible de Marcado para Owl) es un lenguaje de Owl para configurar los Owl Output Config permitiendo realizar configuraciones más robustas y con más opciones, se basa en XML. El lenguaje fue introducido a partir de la versión 2.0 de Owl.
+El XOML (eXtensible Owl Markup Language / Lenguaje Extensible de Marcado para Owl) es un lenguaje de Owl para configurar los Owl Output Config permitiendo realizar configuraciones más robustas y con más opciones, se basa en XML. El lenguaje fue introducido a partir de la versión 2.0 de Owl.
 
-La sintaxis de XPML se utiliza para configurar las propiedades de un determinado objeto y se puede realizar de la siguiente forma:
+La sintaxis de XOML se utiliza para configurar las propiedades de un determinado objeto y se puede realizar de la siguiente forma:
 
 |**TIPO**|**EJEMPLO**  |
 |--|--|
 |Atributo: Se coloca la propiedad como atributo Xml y se asigna directamente el valor de la propiedad  | < Elemento Longitud=”12” /> |
-|Atributo con Inline XPML: Se coloca la propiedad como atributo Xml y el valor de la propiedad con una palabra clave seguida de dos puntos y luego el valor, las palabras claves soportadas son: - Predeterminado - Variable - Reservada - Buscar|< Elemento Longitud=”Variable:LongitudConfig” /> < Elemento Descripcion=”Buscar:val/@val” />|
+|Atributo con Inline XOML: Se coloca la propiedad como atributo Xml y el valor de la propiedad con una palabra clave seguida de dos puntos y luego el valor, las palabras claves soportadas son: - Predeterminado - Variable - Reservada - Buscar|< Elemento Longitud=”Variable:LongitudConfig” /> < Elemento Descripcion=”Buscar:val/@val” />|
 |Etiqueta: Se coloca una subetiqueda con el nombre del objeto, punto “.”, y el nombre de la propiedad, para asignar el valor se utiliza una palabra clave|< Elemento > <Elemento.Longitud>  < Palabra Clave>  </Elemento.Longitud> </ Elemento>|
-|Listas: Cuando una propiedad del objeto sea una lista, se puede configurar como atributo enviando los valores separados por coma “,” o se puede configurar como etiqueta creando por cada valor una etiqueta nueva con la estructura (nombre objeto, punto “.”, propiedad, punto “.”, Valor (texto fijo)). Cuando se envíe como atributo con los valores separados por coma, cada valor se puede configurar con Inline XPML| Atributo:<Referencia CamposObtener="Campo1,Campo2"Atributo con Inline XPML: <Referencia CamposObtener="Buscar:val/@val,Campo2" Etiqueta: < Referencia >  <Referencia.CamposObtener>  <Referencia.CamposObtener.Valor>  < Palabra Clave>  </Referencia.CamposObtener.Valor>  <Referencia.CamposObtener.Valor>  < Palabra Clave>  </Referencia.CamposObtener.Valor>  </Referencia.CamposObtener> </ Referencia> |
+|Listas: Cuando una propiedad del objeto sea una lista, se puede configurar como atributo enviando los valores separados por coma “,” o se puede configurar como etiqueta creando por cada valor una etiqueta nueva con la estructura (nombre objeto, punto “.”, propiedad, punto “.”, Valor (texto fijo)). Cuando se envíe como atributo con los valores separados por coma, cada valor se puede configurar con Inline XOML| Atributo:<Referencia CamposObtener="Campo1,Campo2"Atributo con Inline XOML: <Referencia CamposObtener="Buscar:val/@val,Campo2" Etiqueta: < Referencia >  <Referencia.CamposObtener>  <Referencia.CamposObtener.Valor>  < Palabra Clave>  </Referencia.CamposObtener.Valor>  <Referencia.CamposObtener.Valor>  < Palabra Clave>  </Referencia.CamposObtener.Valor>  </Referencia.CamposObtener> </ Referencia> |
 
 Dentro de la configuración es posible combinar diferentes propiedades como atributo y como etiqueta, en caso de que la misma propiedad se configure como atributo y etiqueta solo se tendrá en cuenta el atributo. 
 
-**Nota: Algunos objetos tienen restricciones en la configuración XPML y solo permiten configurar algunas propiedades como atributo o solo como etiqueta.**
+**Nota: Algunos objetos tienen restricciones en la configuración XOML y solo permiten configurar algunas propiedades como atributo o solo como etiqueta.**
 
 ##  4. Palabras Clave
 
@@ -129,7 +128,7 @@ Palabras clave - Funciones: Son las que nos permiten realizar alguna función pr
 |LimpiarEspacios  |Función para quitar los espacios en blanco al valor  |
 |Si  |Función para hacer un validación entre dos valores  |
 
-Las palabras claves se colocan en el Owl Output Config con la sintaxis XPML, sin embargo, las palabras clave Predeterminado, Variable, Reservada y Buscar se pueden colocar como atributos: 
+Las palabras claves se colocan en el Owl Output Config con la sintaxis XOML, sin embargo, las palabras clave Predeterminado, Variable, Reservada y Buscar se pueden colocar como atributos: 
 
  - Atributo: El Owl busca el atributo que corresponda a una palabra
    clave permitida como atributo y obtiene el valor, en caso de que se
@@ -142,7 +141,7 @@ Las palabras claves se colocan en el Owl Output Config con la sintaxis XPML, sin
 Valor por defecto, la sintaxis es: 
         
  - Atributo: Predeterminado=”VALOR”
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
 
       <Predeterminado Valor="" />
     <Predeterminado>
@@ -159,7 +158,7 @@ Para agregar variables por código se realiza de la siguiente forma:
 La sintaxis es: 
 
  -  Atributo: Variable=”NOMBRE_VARIABLE”  
- -   XPML: Las siguientes dos
+ -   XOML: Las siguientes dos
    opciones:
 
     <Variable Valor="" />
@@ -173,7 +172,7 @@ Si se trata de acceder a una variable que no existe se genera una excepción de 
 Valor que se obtiene a partir de una palabra reservada en la estructura de salida, la sintaxis es: 
 
  -  Atributo: Reservada=”PALABRA_RESERVADA” 
- -   XPML: Las siguientes dos
+ -   XOML: Las siguientes dos
    opciones:
 
     <Reservada Valor="" />
@@ -206,7 +205,7 @@ En caso de colocar una palabra reservada no soportada se genera una excepción d
 Valor que se busca en la estructura de entrada, la sintaxis es:
 
  -  Atributo: uscar=”EXPRESION_A_EVALUAR”
- -   XPML: Las siguientes dos
+ -   XOML: Las siguientes dos
    opciones:
 
     <Buscar Valor="" />
@@ -222,7 +221,7 @@ Para los tipos soportados por Owl en caso de haber un error con la expresión se
 
 Valor que se obtiene del DataSet de referencias configurado en OwlSettings, la sintaxis es: 
 
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
  
     <Referencia Tabla="" ValorDefecto="" Formato="" CamposObtener="," CamposBuscar=","
     ValoresBuscar="," />
@@ -264,7 +263,7 @@ Valor que se obtiene del DataSet de referencias configurado en OwlSettings, la s
 ### 4.6 Concatenar 
 Función para concatenar múltiples valores, la sintaxis es: 
 
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
 
     <Concatenar Separador="" Formato="" Valores="," />
     <Concatenar>
@@ -289,7 +288,7 @@ Función para concatenar múltiples valores, la sintaxis es:
 ### 4.7 SubCadena
  Función para obtener una subcadena, la sintaxis es:
 
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
 
     <SubCadena Valor="" Inicio="" Largo="" Limpiar="" />
     <SubCadena>
@@ -318,7 +317,7 @@ Función para concatenar múltiples valores, la sintaxis es:
 ### 4.8 Longitud 
 Función para obtener la longitud de un valor, la sintaxis es: 
 
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
 
     <Longitud Valor="" />
     <Longitud>
@@ -330,7 +329,7 @@ Función para obtener la longitud de un valor, la sintaxis es:
 ### 4.9 EsNumero 
 Función para validar si el valor representa un número, la sintaxis es: 
 
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
 
     <EsNumero Valor="" ValorVerdadero="" ValorFalso="" />
     <EsNumero>
@@ -355,7 +354,7 @@ Función para validar si el valor representa un número, la sintaxis es:
 ### 4.10 IndiceDe
  Función para obtener la posición donde se encuentra una subcadena dentro del valor, la sintaxis es:
   
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
 
     <IndiceDe Valor="" CadenaBuscar="" Inicio="" />
     <IndiceDe>
@@ -378,7 +377,7 @@ Función para validar si el valor representa un número, la sintaxis es:
 
 Función para validar si el valor está vacío, la sintaxis es: 
 
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
  
     <EsVacio Valor="" ValorVerdadero="" ValorFalso="" Limpiar="" />
     <EsVacio>
@@ -403,7 +402,7 @@ Función para validar si el valor está vacío, la sintaxis es:
 ### 4.12 LimpiarEspacios
  Función para quitar los espacios en blanco al valor, la sintaxis es: 
  
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
 
     <LimpiarEspacios Valor="" Lado="" />
     <LimpiarEspacios>
@@ -420,7 +419,7 @@ Función para validar si el valor está vacío, la sintaxis es:
 
  Función para hacer una validación entre dos valores, la sintaxis es: 
  
- -   XPML: Las siguientes dos opciones:
+ -   XOML: Las siguientes dos opciones:
 
     <Si Valor1="" Valor2="" TipoComparacion="" ValorVerdadero="" ValorFalso="" />
     <Si>
@@ -596,9 +595,9 @@ Configuración a nivel de Sección:
 |Base|String|X||Id de la estructura base|
 |AntesDe|String|X||(Herencia) Nombre de la sección que va después de la actual|
 |DespuesDe|String|X||(Herencia) Nombre de la sección que va antes de la actual|
-|Requeridos|String (Atributo) XPML (Etiqueta)|X|X|Lista de elementos requeridos para que se genere la sección|
-|RequeridosGrupo|String (Atributo) XPML (Etiqueta)|X|X|(Herencia) Nombre de la sección que va antes de la actual|
-|Si|XPML)||X|Condición que se debe cumplir para que se genere la sección|
+|Requeridos|String (Atributo) XOML (Etiqueta)|X|X|Lista de elementos requeridos para que se genere la sección|
+|RequeridosGrupo|String (Atributo) XOML (Etiqueta)|X|X|(Herencia) Nombre de la sección que va antes de la actual|
+|Si|XOML)||X|Condición que se debe cumplir para que se genere la sección|
 
  - Requeridos y RequeridosGrupo: Se utilizan cuando se requiere
    validar que exista algún(os) elemento(s) o algún contenido para que la sección se genere.
@@ -668,28 +667,28 @@ La sintaxis es:
     <Seccion.Si Previo="Si">
      <Condicion>
      <Valor1>
-     <!--VALOR EN XPML-->
+     <!--VALOR EN XOML-->
      </Valor1>
      <Valor2 TipoComparacion="Igual">
-     <!--VALOR EN XPML-->
+     <!--VALOR EN XOML-->
      </Valor2>
      </Condicion>
      <Condicion OperadorLogico="O">
      <Si>
      <Condicion>
      <Valor1>
-     <!--VALOR EN XPML-->
+     <!--VALOR EN XOML-->
      </Valor1>
      <Valor2 TipoComparacion="Igual">
-     <!--VALOR EN XPML-->
+     <!--VALOR EN XOML-->
      </Valor2>
      </Condicion>
      <Condicion OperadorLogico="Y">
      <Valor1>
-     <!--VALOR EN XPML-->
+     <!--VALOR EN XOML-->
      </Valor1>
      <Valor2 TipoComparacion="Igual">
-     <!--VALOR EN XPML-->
+     <!--VALOR EN XOML-->
      </Valor2>
      </Condicion>
      </Si>
@@ -710,7 +709,7 @@ La sintaxis es:
         
         - La etiqueta Condición puede llevar los valores a comparar o una nueva configuración de Si, cuando un campo lleva una etiqueta Si, primero se evalúa el contenido interno.
         
-        - Las etiquetas Valor1 y Valor2 son los valores a comparar en la condición, el valor se de cada etiqueta se obtiene a partir de una palabra clave en XPML.
+        - Las etiquetas Valor1 y Valor2 son los valores a comparar en la condición, el valor se de cada etiqueta se obtiene a partir de una palabra clave en XOML.
         
         - La etiqueta Valor2 lleva el tipo de comparación a realizar, son soportados “Igual” y “Diferente” para valores alfanuméricos y “Mayor”, “Menor”, “MayorIgual” y “MenorIgual” para valores numéricos.
 
@@ -809,7 +808,7 @@ También desde el método podemos cancelar la escritura de la sección, se hace 
 
     static void Output_SectionGroupInitiated(object sender, OutputSectionEventArgs e)
     {
-     e.XPMLConfig.CancelWriteSection = true;
+     e.XOMLConfig.CancelWriteSection = true;
     }
 
 Por defecto ninguna sección genera evento, pero si se requiere modificar el comportamiento se puede hacer de la siguiente forma:
@@ -826,7 +825,7 @@ Si se requiere solo modificar el comportamiento de una sola sección se realiza 
 
 También desde el método podemos establecer si el campo tiene error o modificar su valor, se hace de la siguiente forma:
 
-    static void Output_AlphanumericElementProcessed(object sender, OutputElementEventArgs e) { e.XPMLConfig.ElementWithError = true; e.XPMLConfig.Valor = "nuevovalor"; }
+    static void Output_AlphanumericElementProcessed(object sender, OutputElementEventArgs e) { e.XOMLConfig.ElementWithError = true; e.XOMLConfig.Valor = "nuevovalor"; }
  
  Al colocarlo en error el campo queda en blanco
 
