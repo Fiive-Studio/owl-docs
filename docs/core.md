@@ -133,351 +133,337 @@ Las Owl Keywords se colocan en el Owl Output Config con la sintaxis XOML, sin em
 ### 4.1 default 
 
 Valor por defecto, la sintaxis es: 
-        
- - Atributo: default=”VALOR”
- -   XOML: Las siguientes dos opciones:
 
-      &lt;default Valor="" /&gt;
-    &lt;default&gt;
-     &lt;default.Valor&gt;&lt;/default.Valor&gt;
-    &lt;/default&gt;
+Atributo: default=”VALUE”<br />
+XOML: Las siguientes dos opciones:
 
-### 4.2 variable 
-Valor de una variable que se configura en la clase OwlHandler o con las opciones variableGlobal y Contador. 
+    <default value="" />
+    
+    <default>
+     <default.value></default.value>
+    </default>
+
+### 4.2 variable
+
+Valor de una Variable que se configura en la clase OwlHandler o con las opciones new-variable y counter. 
 
 Para agregar variables por código se realiza de la siguiente forma:
 
-    Owl["Line"] = "CustomValue";
+    Owl["variable-name"] = "value";
     
 La sintaxis es: 
 
- -  Atributo: variable=”NOMBRE_variable”  
- -   XOML: Las siguientes dos
-   opciones:
+Atributo: variable=”variable-name”<br />
+XOML: Las siguientes dos opciones:
 
-    &lt;variable Valor="" /&gt;
-    &lt;variable&gt;
-     &lt;variable.Valor&gt;&lt;/variable.Valor&gt;
-    &lt;/variable&gt;
+    <variable value="" />
+
+    <variable>
+     <variable.value></variable.value>
+    </variable>
 
 Si se trata de acceder a una variable que no existe se genera una excepción de tipo OwlException. 
 
 ### 4.3 key
-Valor que se obtiene a partir de una palabra key en la estructura de salida, la sintaxis es: 
 
- -  Atributo: key=”PALABRA_key” 
- -   XOML: Las siguientes dos
-   opciones:
+Valor que se obtiene a partir de una palabra reservada en la estructura de salida, la sintaxis es: 
 
-    &lt;key Valor="" /&gt;
-    &lt;key&gt;
-     &lt;key.Valor&gt;&lt;/key.Valor&gt;
-    &lt;/key&gt;
+Atributo: key=”value”<br />
+XOML: Las siguientes dos opciones:
+
+    <key value="" />
+
+    <key>
+     <key.value></key.value>
+    </key>
     
 Las salidas de Owl incluyen las siguientes palabras keys: 
 
- - **CONSECUTIVO_ITERA**: Entrega el consecutivo de la iteración actual.
- 
- - **CONSECUTIVO_ITERA_PADRE**: Entrega el consecutivo de la iteración actual de la sección padre.
+ - **CONSECUTIVE_ITERA**: Entrega el consecutivo de la iteración actual.
 
- - **FECHAHORA_SISTEMA:FORMATO**: Fecha y hora del sistema. El formato es opcional, si no se coloca formato, por defecto es “yyyyMMdd”, los formatos soportados son los mismos de .Net
+ - **CONSECUTIVE_ITERA_PARENT**: Entrega el consecutivo de la iteración actual de la sección padre.
 
-  - Ejemplo:
- 
-    - Si la fecha es 2011/11/21 el Owl devolverá lo siguiente:
-    - FECHAHORA_SISTEMA  Devuelve 20111221 
-    - FECHAHORA_SISTEMA:yyyyMMddHHmm  Devuelve 201111210840
+ - **DATETIME:FORMAT**: Fecha y hora del sistema. El formato es opcional, si no se coloca formato, por defecto es “yyyyMMdd”, los formatos soportados son los mismos de .Net, ejemplos:
 
- - **CONTADOR_SEGMENTOS**: Contador de segmentos (Secciones).
+    - Si la fecha es 2020/12/24 el Owl devolverá lo siguiente:
 
-  - **CONSECUTIVO_ESTRUCTURA**: Entrega el consecutivo de la iteración de la estructura actual.
+    - FECHAHORA_SISTEMA => 20201224 
 
-En caso de colocar una palabra key no soportada se genera una excepción de tipo OwlException.
+    - FECHAHORA_SISTEMA:yyyyMMddHHmm => Devuelve 202012240935
+
+ - **TOTAL_SECTIONS**: Contador de secciones.
+
+ - **CONSECUTIVE_STRUCTURE**: Entrega el consecutivo de la iteración de la estructura actual.
+
+En caso de colocar un valor no soportado se genera una excepción de tipo OwlException.
 
 ### 4.4 xpath
 
 Valor que se busca en la estructura de entrada, la sintaxis es:
 
- -  Atributo: uscar=”EXPRESION_A_EVALUAR”
- -   XOML: Las siguientes dos
-   opciones:
+Atributo: xpath=”xpath”<br />
+XOML: Las siguientes dos opciones:
 
-    &lt;xpath Valor="" /&gt;
-    &lt;xpath&gt;
-     &lt;xpath.Valor&gt;&lt;/xpath.Valor&gt;
-    &lt;/xpath&gt;
+    <xpath value="" />
 
-Para los tipos soportados por Owl en caso de haber un error con la expresión se genera una excepción de tipo OwlSectionException. 
+    <xpath>
+     <xpath.value></xpath.value>
+    </xpath>
 
-**NOTA: La EXPRESION_A_EVALUAR la define la estructura de entrada (por defecto Owl da soporte a entradas XML y las expresiones usadas se dan en Xpath).**
+En caso de haber un error con el xpath se genera una excepción de tipo OwlSectionException.
 
 ### 4.5 reference 
 
-Valor que se obtiene del DataSet de references configurado en OwlSettings, la sintaxis es: 
+Valor que se obtiene del DataSet configurado en la propiedad References de OwlSettings, la sintaxis es: 
 
- -   XOML: Las siguientes dos opciones:
+XOML: Las siguientes dos opciones:
  
-    &lt;reference Tabla="" ValorDefecto="" Formato="" CamposObtener="," Camposxpath=","
-    Valoresxpath="," /&gt;
-    &lt;reference&gt;
-     &lt;reference.Tabla&gt;&lt;/reference.Tabla&gt;
-     &lt;reference.ValorDefecto&gt;&lt;/reference.ValorDefecto&gt;
-     &lt;reference.Formato&gt;&lt;/reference.Formato&gt;
-     &lt;reference.CamposObtener&gt;
-     &lt;reference.CamposObtener.Valor&gt;&lt;/reference.CamposObtener.Valor&gt;
-     &lt;/reference.CamposObtener&gt;
-     &lt;reference.Camposxpath&gt;
-     &lt;reference.Camposxpath.Valor&gt;&lt;/reference.Camposxpath.Valor&gt;
-     &lt;/reference.Camposxpath&gt;
-     &lt;reference.Valoresxpath&gt;
-     &lt;reference.Valoresxpath.Valor&gt;&lt;/reference.Valoresxpath.Valor&gt;
-     &lt;/reference.Valoresxpath&gt;
-    &lt;/reference&gt;
+    <reference table="" default-value="" format="" fields-get="," fields-seek="," values-seek="," />
+
+    <reference>
+     <reference.table></reference.table>
+     <reference.default-value></reference.default-value>
+     <reference.format></reference.format>
+     <reference.fields-get>
+        <reference.fields-get.Valor></reference.fields-get.Valor>
+     </reference.fields-get>
+     <reference.fields-seek>
+        <reference.fields-seek.Valor></reference.fields-seek.Valor>
+     </reference.fields-seek>
+     <reference.values-seek>
+        <reference.values-seek.Valor></reference.values-seek.Valor>
+     </reference.values-seek>
+    </reference>
     
- -  Tabla: Nombre de la tabla dentro del DataSet donde se va a realizar la búsqueda. 
+ - table: Nombre de la tabla dentro del DataSet donde se va a realizar la búsqueda. 
    
- - ValorDefecto: Valor a retornar si la búsqueda no
-   retorna datos.
+ - default-value: Valor a retornar si la búsqueda no retorna datos.
    
- -  Formato: Se configura el formato para los campos a
-   obtener, se soportan los mismos de .Net para strings.  
+ - format: Se configura el formato para los campos a obtener, se soportan los mismos de .Net para strings.  
    
- -  CamposObtener: Lista de campos a retornar 
+ - fields-get: Lista de campos a retornar
  
- -  Camposxpath: Lista de campos donde se va a xpath (Los Camposxpath deben ser la misma)
-   cantidad que Valoresxpath, si no se cumple se genera una excepción
-   de tipo OwlExcepcion.)  
+ - fields-seek: Lista de campos donde se va a buscar (fields-seek deben ser la misma cantidad que values-seek, si no se cumple se genera una excepción de tipo OwlExcepcion.)  
  
- -  Valoresxpath: Lista de valores a xpath en
-   los campos  
+ - values-seek: Lista de valores a buscar en los campos  
    
- -  Configuración opcional: Formato, ValorDefecto (si no se
-   configura queda una cadena vacía).
+Configuración opcional: format, default-value (si no se configura se retorna un valor vacío).
 
-### 4.6 concatenate 
+### 4.6 concatenate
+
 Función para concatenar múltiples valores, la sintaxis es: 
 
- -   XOML: Las siguientes dos opciones:
+XOML: Las siguientes dos opciones:
 
-    &lt;concatenate Separador="" Formato="" Valores="," /&gt;
-    &lt;concatenate&gt;
-     &lt;concatenate.Separador&gt;&lt;/concatenate.Separador&gt;
-     &lt;concatenate.Formato&gt;&lt;/concatenate.Formato&gt;
-     &lt;concatenate.Valores&gt;
-     &lt;concatenate.Valores.Valor&gt;&lt;/concatenate.Valores.Valor&gt;
-     &lt;/concatenate.Valores&gt;
-    &lt;/concatenate&gt;
+    <concatenate separator="" format="" values="," />
 
- -  Separador: Valor con el que se van a separar los campos.  
+    <concatenate>
+     <concatenate.separator></concatenate.separator>
+     <concatenate.format></concatenate.format>
+     <concatenate.values>
+        <concatenate.values.Valor></concatenate.values.Valor>
+     </concatenate.values>
+    </concatenate>
+
+ - separator: Valor con el que se van a separar los campos.  
  
- -  Formato: Se configura el formato para los Valores a concatenar, se soportan
-   los mismos de .Net para strings.
+ - format: Se configura el formato para los Valores a concatenar, se soportan los mismos de .Net para strings.
 
- - Valores: Lista de Valores a
-   concatenar.  
+ - values: Lista de Valores a concatenar.
 
- -  Configuración opcional: Separador, Formato.
- -   Si se configuran Separador y Formato al mismo tiempo, solo se tiene en cuenta separador.
+Configuración opcional: separator, format. Si se configuran separator y format al mismo tiempo, solo se tiene en cuenta separador.
 
 ### 4.7 substring
- Función para obtener una subcadena, la sintaxis es:
 
- -   XOML: Las siguientes dos opciones:
+Función para obtener una subcadena, la sintaxis es:
 
-    &lt;substring Valor="" Inicio="" Largo="" Limpiar="" /&gt;
-    &lt;substring&gt;
-     &lt;substring.Valor&gt;&lt;/substring.Valor&gt;
-     &lt;substring.Inicio&gt;&lt;/substring.Inicio&gt;
-     &lt;substring.Largo&gt;&lt;/substring.Largo&gt;
-     &lt;substring.Limpiar&gt;&lt;/substring.Limpiar&gt;
-    &lt;/substring&gt;
+XOML: Las siguientes dos opciones:
 
- -  Valor: Valor original  
- 
- -  Inicio: Posición inicial de donde se va a
-   iniciar a tomar la subcadena (Si el valor es menor a 0, Owl lo vuelve 0).
+    <substring value="" start="" length="" trim="" /
+    
+    <substring>
+     <substring.value></substring.value>
+     <substring.start></substring.start>
+     <substring.length></substring.length>
+     <substring.trim></substring.trim>
+    </substring>
+
+ - value: Valor original  
+
+ - start: Posición inicial de donde se va a iniciar a tomar la subcadena (Si el valor es menor a 0, Owl lo vuelve 0).
    
- -  Largo: length, a partir de la posición de Inicio que se va a
-   tomar para la subcadena (si es menor que la posición de inicio,
-   retorna una cadena vacía. Si el largo es mayor al valor original
-   retorna hasta la última posición).
+ - length: Longitud, a partir de la posición de Inicio que se va a tomar para la subcadena (si es menor que la posición de inicio, retorna una cadena vacía. Si el largo es mayor al valor original retorna hasta la última posición).
    
- -  Limpiar (Si, No): Indica si
-   quitan los espacios en blanco al inicio y fin de la subcadena.
+ - trim (Si, No): Indica si se quitan los espacios en blanco al inicio y fin de la subcadena.
    
+Configuración opcional: length, trim.
 
--    Configuración opcional: Largo, Limpiar.
+### 4.8 length
 
-### 4.8 length 
 Función para obtener la longitud de un valor, la sintaxis es: 
 
- -   XOML: Las siguientes dos opciones:
+XOML: Las siguientes dos opciones:
 
-    &lt;length Valor="" /&gt;
-    &lt;length&gt;
-     &lt;length.Valor&gt;&lt;/length.Valor&gt;
-    &lt;/length&gt;
+    <length value="" />
 
- -  Valor: Valor del que se va obtener la longitud.
+    <length>
+     <length.value></length.value>
+    </length>
 
-### 4.9 is-number 
+ - value: Valor del que se va obtener la longitud.
+
+### 4.9 is-number
+
 Función para validar si el valor representa un número, la sintaxis es: 
 
- -   XOML: Las siguientes dos opciones:
+XOML: Las siguientes dos opciones:
 
-    &lt;is-number Valor="" ValorVerdadero="" ValorFalso="" /&gt;
-    &lt;is-number&gt;
-     &lt;is-number.Valor&gt;&lt;/is-number.Valor&gt;
-     &lt;is-number.ValorVerdadero&gt;&lt;/is-number.ValorVerdadero&gt;
-     &lt;is-number.ValorFalso&gt;&lt;/is-number.ValorFalso&gt;
-    &lt;/is-number&gt;
+    <is-number value="" true="" false="" /
     
-
- -  Valor: Valor a validar. 
+    <is-number>
+     <is-number.value></is-number.value>
+     <is-number.true></is-number.true>
+     <is-number.false></is-number.false>
+    </is-number>
+    
+ - value: Valor a validar.
  
- -  ValorVerdadero: Valor a retornar si se
-   valida el número correctamente.
-   
- -  ValorFalso: Valor a retornar si no
-   se validar correctamente.
-   
+ - true: Valor a retornar si se valida el número correctamente.
 
- -  Configuración opcional: ValorFalso (si no
-   se configura queda una cadena vacía).
+ - false: Valor a retornar si no se valida correctamente.
+
+ Configuración opcional: false (si no se configura se retorna un valor vacío).
 
 ### 4.10 index-of
- Función para obtener la posición donde se encuentra una subcadena dentro del valor, la sintaxis es:
+
+Función para obtener la posición donde se encuentra una subcadena dentro del valor, la sintaxis es:
   
- -   XOML: Las siguientes dos opciones:
+XOML: Las siguientes dos opciones:
 
-    &lt;index-of Valor="" Cadenaxpath="" Inicio="" /&gt;
-    &lt;index-of&gt;
-     &lt;index-of.Valor&gt;&lt;/index-of.Valor&gt;
-     &lt;index-of.Cadenaxpath&gt;&lt;/index-of.Cadenaxpath&gt;
-     &lt;index-of.Inicio&gt;&lt;/index-of.Inicio&gt;
-    &lt;/index-of&gt;
+    <index-of value="" string-seek="" start="" />
 
- -  Valor: Valor a procesar.
- -  Cadenaxpath: Subcadena que se va a
-   xpath.  
+    <index-of>
+     <index-of.value></index-of.value>
+     <index-of.string-seek></index-of.string-seek>
+     <index-of.start></index-of.start>
+    </index-of>
+
+ - value: Valor a procesar.
+
+ - string-seek: Subcadena que se va a buscar.
    
- - Inicio: Posición desde donde se va a iniciar a xpath la
-   subcadena (Si se configura un número menor a 0 o mayor a la longitud del valor a procesar genera OwlElementException).  
+ - start: Posición desde donde se va a iniciar a xpath la subcadena (Si se configura un número menor a 0 o mayor a la longitud del valor a procesar genera OwlElementException).  
    
- -  Configuración opcional: Inicio (si no se configura queda 0).
- 
+Configuración opcional: string-seek (si no se configura queda 0). 
 
 ### 4.11 is-empty 
 
 Función para validar si el valor está vacío, la sintaxis es: 
 
- -   XOML: Las siguientes dos opciones:
+XOML: Las siguientes dos opciones:
  
-    &lt;is-empty Valor="" ValorVerdadero="" ValorFalso="" Limpiar="" /&gt;
-    &lt;is-empty&gt;
-     &lt;is-empty.Valor&gt;&lt;/is-empty.Valor&gt;
-     &lt;is-empty.ValorVerdadero&gt;&lt;/is-empty.ValorVerdadero&gt;
-     &lt;is-empty.ValorFalso&gt;&lt;/is-empty.ValorFalso&gt;
-     &lt;is-empty.Limpiar&gt;&lt;/is-empty.Limpiar&gt;
-    &lt;/is-empty&gt;
+    <is-empty value="" true="" false="" trim="" />
     
- -  Valor: Valor a validar. 
+    <is-empty>
+     <is-empty.value></is-empty.value>
+     <is-empty.true></is-empty.true>
+     <is-empty.false></is-empty.false>
+     <is-empty.trim></is-empty.trim>
+    </is-empty>
+    
+ - value: Valor a validar. 
  
- - ValorVerdadero: Valor a retornar si el
-   valor es vacío.
+ - true: Valor a retornar si el valor es vacío.
   
-  - ValorFalso: Valor a retornar si el valor no es vacío.
+ - false: Valor a retornar si el valor no es vacío.
   
-  - Limpiar (Si, No): Indica si quitan los espacios en blanco al inicio y fin del valor antes de validar.
+ - trim (true, false): Indica si quitan los espacios en blanco al inicio y fin del valor antes de validar.
    
-  -  Configuración opcional: ValorFalso (si no se configura queda una cadena vacía), Limpiar (si no se configura queda false).
-
+Configuración opcional: false (si no se configura queda una cadena vacía), trim (si no se configura queda false).
 
 ### 4.12 trim
- Función para quitar los espacios en blanco al valor, la sintaxis es: 
+
+Función para quitar los espacios en blanco al valor, la sintaxis es: 
  
- -   XOML: Las siguientes dos opciones:
+XOML: Las siguientes dos opciones:
 
-    &lt;trim Valor="" Lado="" /&gt;
-    &lt;trim&gt;
-     &lt;trim.Valor&gt;&lt;/trim.Valor&gt;
-     &lt;trim.Lado&gt;&lt;/trim.Lado&gt;
-    &lt;/trim&gt;
+    <trim value="" type="" />
 
- -  Valor: Valor a procesar.
- -  Lado (Inicio, Fin): Indica el lado donde se limpian los espacios, si no se envía se limpian en ambos lados.
--  Configuración opcional: Lado.
+    <trim>
+     <trim.value></trim.value>
+     <trim.type></trim.type>
+    </trim>
 
+ - value: Valor a procesar.
 
-### 4.13 Si
+ - type (start, end): Indica el lado donde se quitan los espacios, si no se envía se quitan en ambos lados.
 
- Función para hacer una validación entre dos valores, la sintaxis es: 
+Configuración opcional: type.
+
+### 4.13 if
+
+Función para hacer una validación entre dos valores, la sintaxis es: 
  
- -   XOML: Las siguientes dos opciones:
+XOML: Las siguientes dos opciones:
 
-    &lt;Si Valor1="" Valor2="" TipoComparacion="" ValorVerdadero="" ValorFalso="" /&gt;
-    &lt;Si&gt;
-     &lt;Si.Valor1&gt;&lt;/Si.Valor1&gt;
-     &lt;Si.Valor2&gt;&lt;/Si.Valor2&gt;
-     &lt;Si.TipoComparacion&gt;&lt;/Si.TipoComparacion&gt;
-     &lt;Si.ValorVerdadero&gt;&lt;/Si.ValorVerdadero&gt;
-     &lt;Si.ValorFalso&gt;&lt;/Si.ValorFalso&gt;
-    &lt;/Si&gt;
+    <Si value-1="" value-2="" type="" true="" false="" />
 
- -  Valor1: Primer valor a comparar. 
+    <Si>
+     <Si.value-1></Si.value-1>
+     <Si.value-2></Si.value-2>
+     <Si.type></Si.type>
+     <Si.true></Si.ValorVerdadero>
+     <Si.false></Si.false>
+    </Si>
+
+ - value-1: Primer valor a comparar. 
  
- -  Valor2: Segundo valor a comparar.  
+ - value-2: Segundo valor a comparar.  
 
- -  TipoComparacion (Igual, Diferente, Mayor, Menor, MayorIgual, MenorIgual): Tipo de comparación a realizar entre los dos valores 
+ - type (equal, different, greater, less, greater-equal, less-equal): Tipo de comparación a realizar entre los dos valores 
    
- -  ValorVerdadero: Valor a retornar si se cumple la validación
-   
+ - true: Valor a retornar si se cumple la validación
 
- -  ValorFalso: Valor a retornar si no se cumple la validación.
+ - false: Valor a retornar si no se cumple la validación.
   
- -  Configuración opcional: ValorFalso (si no se configura queda una cadena vacía).
-
+Configuración opcional: false (si no se configura queda una cadena vacía).
 
 ## 5. Manejo de Excepciones
 
- Owl valida la sintaxis del archivo de configuración y el acceso a datos, dentro de estas validaciones se pueden generar 3 tipos de excepciones:
+ Owl valida la sintaxis del archivo de configuración y el acceso a datos, dentro de estas validaciones se pueden generar estos tipos de excepciones:
   
- -  OwlException  
- -  OwlSeccionException    
- -  OwlElementException   
- -  OwlKeywordException
-
-   Las excepciones dan información detallada de en qué parte del proceso se generó el error para su pronta corrección dentro del archivo de configuración. 
+ - OwlException  
+ - OwlSectionException    
+ - OwlElementException   
+ - OwlKeywordException
 
 ### 5.1 OwlException
 
- Excepción general de Owl de la cual se puede obtener la sección donde ocurrió el error y un mensaje. 
+Excepción general de Owl de la cual se puede obtener la sección donde ocurrió el error y un mensaje. 
 
-### 5.2 OwlSeccionException
+### 5.2 OwlSectionException
 
- Excepción producida dentro del procesamiento de una seccion, de ella se puede obtener el bloque XML donde ocurrió el error, el nodo padre, la sección y un mensaje. 
+Excepción producida dentro del procesamiento de una seccion, de ella se puede obtener el bloque XML donde ocurrió el error, el nodo padre, la sección y un mensaje. 
 
 ### 5.3 OwlElementException
 
- Excepción producida dentro del procesamiento de un elemento, de ella se puede obtener el bloque XML donde ocurrió el error, el nodo padre, la sección y un mensaje.
+Excepción producida dentro del procesamiento de un elemento, de ella se puede obtener el bloque XML donde ocurrió el error, el nodo padre, la sección y un mensaje.
 
 ### 5.4 OwlKeywordException 
 
 Excepción producida dentro de la ejecución de alguna Owl Keyword, de ella se puede obtener la Owl Keyword que generó la excepción.
 
- OwlSeccionException y OwlElementException pueden contener como InnerException excepciones de los demás tipos de Owl, por lo tanto, si usted requiere información más detallada puede verificar si la excepción interna es de alguno de los tipos de Owl para ver la información interna.
-
+OwlSectionException y OwlElementException pueden contener como InnerException excepciones de los demás tipos de Owl, por lo tanto, si requiere información más detallada puede verificar si la excepción interna es de alguno de los tipos de Owl para ver la información interna.
 
 ## 6. Formatos Owl 
 
-Owl provee algunos formatos de entrada y salida para el procesamiento de datos, sin embargo, usted puede crear sus propios tipos implementando la interfaz IFormatInput o IFormatOutput. 
-
+Owl provee algunos formatos de entrada y salida para el procesamiento de datos, sin embargo, se pueden crear tipos personalizados implementando la interfaz IFormatInput o IFormatOutput. 
 
 ### 6.1 XMLInput
 
- Define una estructura XML de entrada.
+Define una estructura XML de entrada.
 
- Para crear un objeto de este tipo tenemos varias opciones:
+Para crear un objeto de este tipo tenemos varias opciones:
 
  - XmlDocument: El constructor recibe un parámetro del tipo con el
    contenido del XML a procesar.  
@@ -485,308 +471,246 @@ Owl provee algunos formatos de entrada y salida para el procesamiento de datos, 
  - Archivo: El constructor recibe la
    ruta del archivo a procesar.
 
-Adicional se provee el método “AddNamespace” para agregar los namespaces que utiliza el XML, sin embargo, si no se agregan Owl los detecta y los agrega automáticamente. La forma de acceder a los datos se hace por medio de XPath. 
+Adicional se provee el método “AddNamespace” para agregar los namespaces que utiliza el XML, sin embargo, si no se agregan Owl los detecta y los agrega automáticamente. La forma de acceder a los datos se hace por medio de xpath.
 
 Ejemplo: 
 Se tiene el siguiente XML:
 
-    &lt;?xml version="1.0" encoding="utf-8"?&gt;
-    &lt;EFACT_D98B_ORDERS&gt;
-     &lt;BGM BGM03="9"&gt;
-     &lt;C002 C00201="220" /&gt;
-     &lt;C106 C10601="251422" /&gt;
-     &lt;/BGM&gt;
-     &lt;DTM&gt;
-     &lt;C507 C50701="137" C50702="20101109000000" C50703="204" /&gt;
-     &lt;/DTM&gt;
-     &lt;DTM&gt;
-     &lt;C507 C50701="64" C50702="20101129000000" C50703="204" /&gt;
-     &lt;/DTM&gt;
-     &lt;LINLoop1&gt;
-     &lt;LIN LIN01="1"&gt;
-     &lt;C212 C21201="7797679401230" C21202="EN" /&gt;
-     &lt;/LIN&gt;
-     &lt;IMD IMD01="F"&gt;
-     &lt;C273 C27304="SOPORTE LATERAL 300MMBCO.." /&gt;
-     &lt;/IMD&gt;
-     &lt;/LINLoop1&gt;
-     &lt;LINLoop1&gt;
-     &lt;LIN LIN01="2"&gt;
-     &lt;C212 C21201="7797679444121" C21202="EN" /&gt;
-     &lt;/LIN&gt;
-     &lt;IMD IMD01="F"&gt;
-     &lt;C273 C27304="SOPORTE BRACKET 250X300MMBC" /&gt;
-     &lt;/IMD&gt;
-     &lt;/LINLoop1&gt;
-    &lt;/EFACT_D98B_ORDERS&gt;
+    <?xml version="1.0" encoding="utf-8"?>
+    <input>
+      <header id="1" date="2020" />
+      <details>
+        <detail id="1" code="12" />
+        <detail id="4" code="34" />
+      </details>
+    </input>
 
 Para obtener los datos en la estructura de salida se debe iterar por el nodo principal:
 
-    &lt;Salida Tipo="EDI"&gt;
-     &lt;Estructura Itera="EFACT_D98B_ORDERS"&gt;
+    <owl>
+     <structure itera="input">
      ...
-     &lt;/Estructura&gt;
-    &lt;/Salida&gt;
+     </structure>
+    </owl>
 
-Para obtener datos del encabezado se crean XPath dentro de una sección para acceder a los datos:
+Para obtener datos del encabezado se crean xpath dentro de una sección para acceder a los datos:
 
+    <section name="H" Requeridos="BGM_1004">
+     <element name="id" xpath="header/@id"/>
+     <element name="date" xpath="header/@date"/>
+     <element name="value" default="9"/>
+    </section>
 
+Para iterar sobre el detalle se crea una sección que itere sobre este (Los XPath que se creen dentro de esta
+iteración inician a partir de la etiqueta del detalle):
 
-    &lt;Seccion Nombre="BGM" Requeridos="BGM_1004"&gt;
-     &lt;element Nombre="BGM_C002_1001" xpath="BGM[@BGM03='9']/C002/@C00201"/&gt;
-     &lt;element Nombre="BGM_C002_3055" default="9"/&gt;
-     &lt;element Nombre="BGM_1004" xpath="BGM[@BGM03='9']/C106/@C10601"/&gt;
-    &lt;/Seccion&gt;
-
-Para iterar sobre el detalle se crea una sección que recorra el LINLoop (Los XPath que se creen dentro de esta
-iteración inician a partir de la etiqueta LINLoop1):
-
-    &lt;Seccion Nombre="LIN" Itera="LINLoop1"&gt;
-     &lt;element Nombre="LIN_1082" key="CONSECUTIVO_ITERA"/&gt;
-     &lt;element Nombre="LIN_C212_7140" xpath="LIN/C212/@C21201"/&gt;
-    &lt;/Seccion&gt;
-
+    <section name="D" Itera="details/detail">
+     <element name="count" key="CONSECUTIVO_ITERA"/>
+     <element name="code" xpath="@code"/>
+    </section>
 
 ### 6.2 GenericOutput 
 
-Clase abstracta la cual define un documento de salida con atributos comunes (todos los formatos de Salida del Owl heredan de esta clase). 
+Clase abstracta la cual define un documento de salida con atributos comunes (todos los formatos de Salida de Owl heredan de esta clase). 
 
-**Nota: Al ser una clase abstracta no se puede instanciar, para ello utilice uno de los formatos específicos que provee Owl.** 
-
-Configuración a nivel de Estructura:
+Configuración a nivel de structure:
 
 | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|Itera  |String  |X|X|Expresión a evaluar para hacer la iteración|
-|Linea |String  |X|X|Etiqueta donde se encuentra el contenido de la línea|
-|NumeroLinea |String  |X|X|Etiqueta donde se encuentra el número de la línea|
-|SeccionEvento |Boolean  |X|X|Indica si se genera el evento final de las secciones (afecta todas las secciones)|
-|SeccionEventoPrevio |Boolean  |X|X|ndica si se genera el evento previo de las secciones (afecta todas las secciones)|
-|SeccionEventoGrupo|Boolean| X|X|Indica si se genera el evento de las secciones que tiene itera o más de 1 repetición (afecta todas las secciones)|
-|elementEvento|Boolean|X|X|Indica si se genera el evento de los elementos (afecta todos los elementos)|
-|elementEventoSeccion|Boolean |X|X|Indica si los elementos son incluidos cuando se genere el evento final de las secciones (afecta todos los elementos)|
-|SeparadorDecimalesEntrada|Char|X|X|Carácter usado como separador de decimales en el contenido de entrada (afecta todos los elementos)|
-|SeparadorDecimalesSalida|Char|X|X|Carácter usado como separador de decimales en el contenido de salida (afecta todos los elementos)|
-|Id|String|X||Id de la sección|
-|Base|String|X||Id de la estructura base|
+|itera  |String  |X|X|Expresión a evaluar para hacer la iteración|
+|line |String  |X|X|Etiqueta donde se encuentra el contenido de la línea|
+|number-line |String  |X|X|Etiqueta donde se encuentra el número de la línea|
+|event-section |Boolean  |X|X|Indica si se genera el evento final de las secciones (afecta todas las secciones)|
+|event-section-previous |Boolean  |X|X|Indica si se genera el evento previo de las secciones (afecta todas las secciones)|
+|event-section-group|Boolean| X|X|Indica si se genera el evento de las secciones que tiene itera o más de 1 repetición (afecta todas las secciones)|
+|event-element|Boolean|X|X|Indica si se genera el evento de los elementos (afecta todos los elementos)|
+|event-element-section|Boolean |X|X|Indica si los elementos son incluidos cuando se genere el evento final de las secciones (afecta todos los elementos)|
+|input-decimal-separator|Char|X|X|Carácter usado como separador de decimales en el contenido de entrada (afecta todos los elementos)|
+|output-decimal-separator|Char|X|X|Carácter usado como separador de decimales en el contenido de salida (afecta todos los elementos)|
+|id|String|X||Id de la sección|
+|base|String|X||Id de la estructura base|
 
-
-Configuración a nivel de Sección:
+Configuración a nivel de section:
 
 | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|Nombre |String  |X||Nombre de la sección|
-|Nodo |String  |X|X|Etiqueta de donde se toma la línea y contenido de la línea|
-|Itera |String  |X|X|Expresión a evaluar para hacer una iteración|
-|Evento|Boolean  |X|X|Indica si se genera el evento final para la sección (afecta solo la sección)|
-|EventoPrevio |Boolean  |X|X|Indica si se genera el evento previo para la sección (afecta solo la sección)|
-|EventoGrupo|Boolean| X|X|Indica si se genera el evento cuando la sección tiene itera o tiene más de 1 repetición (afecta solo la sección)|
-|Descripcion|String|X|X|Descripción de la sección|
-|Repeticiones|Int |X|X|Cantidad de veces que se debe repetir la sección|
-|Id|String|X||Id de la sección|
-|MostrarContenido|Boolean|X|X|Indica si el contenido de la sección se muestra en el evento|
-|Sobreescribir|Boolean|X|X|(Herencia) Indica si se sobrescribe la sección|
-|Base|String|X||Id de la estructura base|
-|AntesDe|String|X||(Herencia) Nombre de la sección que va después de la actual|
-|DespuesDe|String|X||(Herencia) Nombre de la sección que va antes de la actual|
-|Requeridos|String (Atributo) XOML (Etiqueta)|X|X|Lista de elementos requeridos para que se genere la sección|
-|RequeridosGrupo|String (Atributo) XOML (Etiqueta)|X|X|(Herencia) Nombre de la sección que va antes de la actual|
-|Si|XOML)||X|Condición que se debe cumplir para que se genere la sección|
+|name |String  |X||Nombre de la sección|
+|node |String  |X|X|Etiqueta de donde se toma la línea y contenido de la línea|
+|itera |String  |X|X|Expresión a evaluar para hacer una iteración|
+|event|Boolean  |X|X|Indica si se genera el evento final para la sección (afecta solo la sección)|
+|event-previous |Boolean  |X|X|Indica si se genera el evento previo para la sección (afecta solo la sección)|
+|event-group|Boolean| X|X|Indica si se genera el evento cuando la sección tiene itera o tiene más de 1 repetición (afecta solo la sección)|
+|description|String|X|X|Descripción de la sección|
+|repetitions|Int |X|X|Cantidad de veces que se debe repetir la sección|
+|id|String|X||Id de la sección|
+|show-content|Boolean|X|X|Indica si el contenido de la sección se muestra en el evento|
+|overwrite|Boolean|X|X|(Herencia) Indica si se sobrescribe la sección|
+|base|String|X||Id de la estructura base|
+|before|String|X||(Herencia) Nombre de la sección que va después de la actual|
+|after|String|X||(Herencia) Nombre de la sección que va antes de la actual|
+|required|String (Atributo)<br />XOML (Etiqueta)|X|X|Lista de elementos requeridos para que se genere la sección|
+|required-group|String (Atributo)<br />XOML (Etiqueta)|X|X|(Herencia) Nombre de la sección que va antes de la actual|
+|if|(XOML)||X|Condición que se debe cumplir para que se genere la sección|
 
- - Requeridos y RequeridosGrupo: Se utilizan cuando se requiere
-   validar que exista algún(os) elemento(s) o algún contenido para que la sección se genere.
+**Requeridos y RequeridosGrupo**: Se utilizan cuando se requiere validar que exista algún(os) elemento(s) o algún contenido para que la sección se genere.
 
-Ejemplo como atributo para RequeridosGrupo: En este caso es necesario que se genere el QTY para que pueda generarse el PIA
+Ejemplo como atributo para required-group: En este caso es necesario que se genere la seccion category para que pueda generarse la seccion game
 
-    &lt;Seccion Nombre="PIA" RequeridosGrupo="QTY"&gt;
-     &lt;element Nombre="PIA_4347" /&gt;
-     &lt;element Nombre="PIA_C212_7140" /&gt;
-     &lt;element Nombre="PIA_C212_7143" /&gt;
-     &lt;Seccion Nombre="QTY"&gt;
-     &lt;element Nombre="QTY_C186_6063" /&gt;
-     &lt;element Nombre="QTY_C186_6060" /&gt;
-     &lt;element Nombre="QTY_C186_6411" /&gt;
-     &lt;/Seccion&gt;
-    &lt;/Seccion&gt;
+    <section name="game" required-group="category">
+      <section name="category"></section>
+    </section>
 
-Ejemplo como atributo para Requeridos: En este caso es necesario que el elemento PIA_4347 tenga valor para que se pueda generar el PIA.
+Ejemplo como atributo para required: En este caso es necesario que el elemento name tenga valor para que se pueda generar la seccion game.
 
-    &lt;Seccion Nombre="PIA" Requeridos="PIA_4347"&gt;
-     &lt;element Nombre="PIA_4347" /&gt;
-     &lt;element Nombre="PIA_C212_7140" /&gt;
-     &lt;element Nombre="PIA_C212_7143" /&gt;
-     &lt;Seccion Nombre="QTY"&gt;
-     &lt;element Nombre="QTY_C186_6063" /&gt;
-     &lt;element Nombre="QTY_C186_6060" /&gt;
-     &lt;element Nombre="QTY_C186_6411" /&gt;
-     &lt;/Seccion&gt;
-    &lt;/Seccion&gt;
+    <section name="game" required="title">
+      <element name="title" />
+    </section>
 
-Ejemplo como etiqueta para RequeridosGrupo:
+Ejemplo como etiqueta para required-group:
 
-    &lt;Seccion.RequeridosGrupo&gt;
-     &lt;Campo&gt;seccion1&lt;/Campo&gt;
-     &lt;Campo OperadorLogico="Y"&gt;
-     &lt;Requeridos&gt;
-     &lt;Campo&gt;seccion2&lt;/Campo&gt;
-     &lt;Campo OperadorLogico="O"&gt;seccion3&lt;/Campo&gt;
-     &lt;/Requeridos&gt;
-     &lt;/Campo&gt;
-    &lt;/ Seccion.Requeridos&gt;
+    <section>
+      <section.required-group>
+        <item>section-1</item>
+        <item logical-operator="or">
+          <required>
+            <item>section-2</item>
+            <item logical-operator="and">section-3</item>
+          </required>
+        </item>
+      </section.required-group>
+    </section>
 
-Ejemplo como etiqueta para Requeridos:
+Ejemplo como etiqueta para required:
 
-    &lt;Seccion.Requeridos&gt;
-     &lt;Campo&gt;campo1&lt;/Campo&gt;
-     &lt;Campo OperadorLogico="Y"&gt;
-     &lt;Requeridos&gt;
-     &lt;Campo&gt;campo2&lt;/Campo&gt;
-     &lt;Campo OperadorLogico="O"&gt;campo3&lt;/Campo&gt;
-     &lt;/Requeridos&gt;
-     &lt;/Campo&gt;
-    &lt;/ Seccion.Requeridos&gt;
-
-
- -       
-    - La etiqueta Campo puede colocarse n veces de acuerdo a los campos que se vayan a configurar.   
+    <section>
+      <section.required>
+        <item>field-1</item>
+        <item logical-operator="or">
+          <required>
+            <item>field-2</item>
+            <item logical-operator="and">field-3</item>
+          </required>
+        </item>
+      </section.required>
+    </section>
     
-    - El atributo OperadorLogico recibe los valores “O” o “Y” y se configura a partir del segundo campo.
+ - La etiqueta item puede colocarse n veces de acuerdo a los campos que se vayan a configurar.   
     
-    -  La etiqueta Campo puede llevar el nombre del elemento, el valor de la sección o una nueva configuración de Requeridos. Cuando un campo lleva una etiqueta de Requeridos primero se evalúa el contenido interno.
+ - El atributo logical-operator recibe los valores “or” o “and” y se configura a partir del segundo campo.
+    
+ - La etiqueta item puede llevar el nombre del elemento, el valor de la sección o una nueva configuración de required. Cuando un campo lleva una etiqueta de required primero se evalúa el contenido interno.
           
- - Si: Se usa esta etiqueta para crear un condicional que indica si la sección se genera o no. 
+**if**: Se usa esta etiqueta para crear un condicional que indica si la sección se genera o no. 
  
 La sintaxis es:
 
-    &lt;Seccion.Si Previo="Si"&gt;
-     &lt;Condicion&gt;
-     &lt;Valor1&gt;
-     &lt;!--VALOR EN XOML--&gt;
-     &lt;/Valor1&gt;
-     &lt;Valor2 TipoComparacion="Igual"&gt;
-     &lt;!--VALOR EN XOML--&gt;
-     &lt;/Valor2&gt;
-     &lt;/Condicion&gt;
-     &lt;Condicion OperadorLogico="O"&gt;
-     &lt;Si&gt;
-     &lt;Condicion&gt;
-     &lt;Valor1&gt;
-     &lt;!--VALOR EN XOML--&gt;
-     &lt;/Valor1&gt;
-     &lt;Valor2 TipoComparacion="Igual"&gt;
-     &lt;!--VALOR EN XOML--&gt;
-     &lt;/Valor2&gt;
-     &lt;/Condicion&gt;
-     &lt;Condicion OperadorLogico="Y"&gt;
-     &lt;Valor1&gt;
-     &lt;!--VALOR EN XOML--&gt;
-     &lt;/Valor1&gt;
-     &lt;Valor2 TipoComparacion="Igual"&gt;
-     &lt;!--VALOR EN XOML--&gt;
-     &lt;/Valor2&gt;
-     &lt;/Condicion&gt;
-     &lt;/Si&gt;
-     &lt;/Condicion&gt;
-    &lt;/Seccion.Si&gt;
-
-
- -        
-      -  El atributo Previo indica si la validación se realiza antes o después de procesar los elementos de la sección, se puede dar lo siguiente: 
+    <section>
+      <section.if later="no">
+        <condition>
+          <value-1></value-1>
+          <value-2 compare-operator="equal"></value-2>
+        </condition>
+        <condition logical-operator="or">
+          <if>
+            <condition>
+              <value-1></value-1>
+              <value-2 compare-operator="equal"></value-2>
+            </condition>
+            <condition logical-operator="and">
+              <value-1></value-1>
+              <value-2 compare-operator="different"></value-2>
+            </condition>
+          </if>
+        </condition>
+      </section.if>
+    </section>
+ 
+ - El atributo later indica si la validación se realiza antes o después de procesar los elementos de la sección, se puede dar lo siguiente: 
             
-              ▪ Previo=“Si”: Se valida si se cumple lo configurado en el “Si”, en caso de cumplirse se continua el procesamiento de los elementos, en caso de NO cumplirse se cancela el procesamiento de la sección y se ignoran los elementos. 
-              ▪ Previo=“No”: Primero se procesan los elementos y posteriormente se valida si se cumple lo configurado en el “Si”, en caso de cumplirse se deja el segmento, en caso de NO cumplirse se elimina el segmento del contenido de salida.
-              
-                             
-        - La etiqueta Condicion puede colocarse n veces de acuerdo a las condiciones que se vayan a configurar.
-        
-        -   El atributo OperadorLogico recibe los valores “O” o “Y” y se configura a partir de la segunda condición.
-        
-        - La etiqueta Condición puede llevar los valores a comparar o una nueva configuración de Si, cuando un campo lleva una etiqueta Si, primero se evalúa el contenido interno.
-        
-        - Las etiquetas Valor1 y Valor2 son los valores a comparar en la condición, el valor se de cada etiqueta se obtiene a partir de una Owl Keyword en XOML.
-        
-        - La etiqueta Valor2 lleva el tipo de comparación a realizar, son soportados “Igual” y “Diferente” para valores alfanuméricos y “Mayor”, “Menor”, “MayorIgual” y “MenorIgual” para valores numéricos.
+    - later=“no”: Se valida si se cumple lo configurado en el “if”, en caso de cumplirse se continua el procesamiento de los elementos, en caso de NO cumplirse se cancela el procesamiento de la sección y se ignoran los elementos. (el valor "no" es el valor por defecto en caso que no se configure)
+
+    - later="yes": Primero se procesan los elementos y posteriormente se valida si se cumple lo configurado en el “if”, en caso de cumplirse se deja el segmento, en caso de NO cumplirse se elimina el segmento del contenido de salida.
+
+ - La etiqueta condition puede colocarse n veces de acuerdo a las condiciones que se vayan a configurar.
+
+    - El atributo logical-operator recibe los valores “or” o “and” y se configura a partir de la segunda condición.
+
+ - La etiqueta condition puede llevar los valores a comparar o una nueva configuración de if, cuando un campo lleva una etiqueta if, primero se evalúa el contenido interno.
+
+ - Las etiquetas value-1 y value-2 son los valores a comparar en la condición, el valor se de cada etiqueta se obtiene a partir de una Owl Keyword en XOML.
+
+ - La etiqueta value-2 lleva el compare-operator a realizar, son soportados “equal” y “different” para valores alfanuméricos y “greater”, “less”, “greater-equal” y “less-equal” para valores numéricos.
 
 Configuración a nivel de element:
 
 | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|Nombre |String  |X||Nombre del element|
-|variableGlobal |String  |X|X|Nombre de la variable global a crear|
-|Evento|Boolean  |X|X|Indica si se genera el evento para el elemento (afecta solo el elemento)|
-|EventoSeccion |Boolean |X|X|Indica si el elemento es incluido en el evento final de la sección (afecta solo el elemento)|
-|Descripcion|String |X|X|Descripción del element|
-|Oculto|Boolean |X|X|Indica si el campo es oculto (no se pinta en la salida)|
-|SeparadorDecimalesEntrada|Char |X|X|Carácter usado como separador de decimales en el contenido de entrada (afecta solo el elemento)|
-|SeparadorDecimalesSalida|Char |X|X|Carácter usado como separador de decimales en el contenido de salida (afecta solo el elemento)|
-|Sobreescribir|Boolean |X||(Herencia) Indica si se sobrescribe la sección|
-|AntesDe|String |X||(Herencia) Nombre de la sección que va después de la actual|
-|DespuesDe|String |X||(Herencia) Nombre de la sección que va antes de la actual|
-|Id|String |X||Id del element|
-|Nodo|String |X|X|Etiqueta de donde se toma la línea y contenido de la línea|
-|TipoDato|Enum (Alfanumerico y Numerico) |X|X|Tipo de dato del element|
-|Requerido|Boolean |X|X|Indica si el elemento es requerido|
+|name |String  |X||Nombre del element|
+|new-variable |String  |X|X|Nombre de la variable global a crear|
+|event|Boolean  |X|X|Indica si se genera el evento para el elemento (afecta solo el elemento)|
+|event-section |Boolean |X|X|Indica si el elemento es incluido en el evento final de la sección (afecta solo el elemento)|
+|description|String |X|X|Descripción del element|
+|hidden|Boolean |X|X|Indica si el campo es oculto (no se pinta en la salida)|
+|input-decimal-separator|Char |X|X|Carácter usado como separador de decimales en el contenido de entrada (afecta solo el elemento)|
+|output-decimal-separator|Char |X|X|Carácter usado como separador de decimales en el contenido de salida (afecta solo el elemento)|
+|overwrite|Boolean |X||(Herencia) Indica si se sobrescribe el element|
+|before|String |X||(Herencia) Nombre del element que va después de la actual|
+|after|String |X||(Herencia) Nombre del element que va antes de la actual|
+|id|String |X||Id del element|
+|node|String |X|X|Etiqueta de donde se toma la línea y contenido de la línea|
+|data-type|Enum (alphanumeric y numeric) |X|X|Tipo de dato del element|
+|mandatory|Boolean |X|X|Indica si el elemento es requerido|
 |length |String |X|X|Configuración de la longitud y relleno del element|
-|Formato |String |X|X|Formato del valor|
-|Contador |String |X|X|Configuración para la creación de un contador|
-|Valor* |String |X|X|Valor del elemento * Si se configura como atributo se debe hacer colocando alguna de las siguiente Owl Keywords: default, variable, key o xpath|
+|format |String |X|X|Formato del valor|
+|counter |String |X|X|Configuración para la creación de un contador|
+|value* |String |X|X|Valor del elemento. Si se configura como atributo se debe hacer colocando alguna de las siguientes Owl Keywords: default, variable, key o xpath|
 
+**length**: Define la longitud de un campo. 
 
-• length: Define la longitud de un campo. 
 Ejemplo:
 
-    &lt;element Nombre="Identificador"
-    length=”CANTIDAD_CARACTERES/ALINEACION/CARÁCTER_RELLENO/SIN_VALOR” /&gt;
+    <element Nombre="Identificador"
+    length=”CANTIDAD_CARACTERES/ALINEACION/CARÁCTER_RELLENO/SIN_VALOR” />
 
- - 
-     - CANTIDAD_CARACTERES: Indica la cantidad máxima de caracteres, cuando la cantidad sea de un dato numérico se coloca (ENTERO,DECIMAL).
-     
-        Si se requiere que coloque todos los enteros o todos los decimales se coloca * 
+ - CANTIDAD_CARACTERES: Indica la cantidad máxima de caracteres, cuando la cantidad sea de un dato numérico se coloca (ENTERO,DECIMAL). Si se requiere que coloque todos los enteros o todos los decimales se coloca * 
+
+Ejemplo:
+(* ,2) deja todos los enteros y dos decimales.
+(2, *) deja dos enteros y todos los decimales. 
+      
+Cuando se coloca * los demás parámetros no se toman en cuenta.
+      
+ - ALINEACION: Recibe el valor que indica hacia donde se alinea el campo (left, right, number y number-s), number centra el valor y coloca relleno al lado entero y al lado decimal con el separador de decimales y number-s centra igual que number pero no coloca separador de decimales.
+
+ - CARÁCTER_RELLENO: Carácter para rellenar el campo, cuando la cantidad sea de un dato numérico y la alineación sea number o number-s se puede colocar (ENTERO,DECIMAL).
+
+ - SIN_VALOR: Indica que hacer con la longitud si el elemento no tiene valor (pad, not-pad y pad-s). La configuración “pad-s” es utilizada solo cuando en Alineación se coloque “number” y se utiliza para que no se coloque el separador cuando el elemento no tenga valor.
+
+ - Formato: Le da formato al valor final del elemento, los posibles valores son:
+
+Texto: Formato para valores alfanuméricos, los formatos soportados son:
+
+  - A: Mayúsculas.
+  - a: Minúsculas.
+  - C: Capital.
+  - T: Limpiar Espacios.
+  - TS: Limpiar Espacios al Inicio. 
+  - TE: Limpiar Espacios al Final.
         
-        Ejemplo:
-         (* ,2) deja todos los enteros y dos decimales.
-      (2, *) deja dos enteros y todos los decimales. 
-      
-      Cuando se coloca * los demás parámetros no se toman en cuenta.
-      
-      
-    - ALINEACION: Recibe el valor que indica hacia donde se alinea el campo (Izquierda, Derecha, Numero y Numero-S), Numero centra el valor y coloca relleno al lado entero y al lado decimal con el separador de decimales y Numero-S centra igual que Numero pero no coloca separador de decimales.
-
-    - CARÁCTER_RELLENO: Carácter para rellenar el campo, cuando la cantidad sea de un dato numérico y la alineación sea Numero o Numero-S se puede colocar (ENTERO,DECIMAL).
-
- - SIN_VALOR: Indica que hacer con la longitud si el elemento no tiene valor (Completar, NoCompletar y Completar-S). La configuración “Completar-S” es utilizada solo cuando en Alineación se coloque “Numero” y se utiliza para que no se coloque el separador cuando el elemento no tenga valor.
- 
- 
-
- -  Formato: Le da formato al valor final del elemento, los posibles valores son:
-
-      - Texto: Formato para valores alfanuméricos, los formatos soportados son:
-             - A: Mayúsculas.
-             - a: Minúsculas.
-             - C: Capital.
-             - T: Limpiar Espacios.
-             - TS: Limpiar Espacios al Inicio. 
-             - TE: Limpiar Espacios al Final.
-         
-     - Numero: Formato para valores numéricos, los formatos soportados son:
-             - #Formato: El “Formato” son los soportados por .Net
+Numero: Formato para valores numéricos, los formatos soportados son los mismos soportados por .Net
              
-     
- Si se requiere aplicar varios formatos se separan por pipe “|” 
- Ejemplo:    
+ Si se requiere aplicar varios formatos se separan por pipe “|”. Ejemplo:    
  
+    <element Formato="A|T" />
+    <element Formato="#0.00" />
 
-    &lt;element Formato="A|T" /&gt;
+**Contador**: Crea una variable para ser usada como un contador en Owl. Ejemplo:
 
- - Contador: Crea una variable para ser usada como un contador en Owl.
- 
-  Ejemplo:
+    <element Contador=" Nombre/Incremento" />
 
-    &lt;element Contador=" Nombre/Incremento" /&gt;
+ - Nombre: Nombre del contador, se crea una variable Owl con ese nombre.
 
- - - Nombre: Nombre del contador, se crea una variable Owl con ese nombre.
- 
-   - Incremento: Valor con el que se incrementa el contador, puede ser el valor del elemento y se colocaría “ValorActual”.
+ - Incremento: Valor con el que se incrementa el contador, puede ser el valor del elemento y se colocaría “current-value”.
 
 ### 6.2.1 Eventos
 
@@ -981,114 +905,3 @@ Si se agrega una nueva sección por defecto se coloca al final, en caso de reque
 Si se desea sobreescribir la sección o el elemento completo en la configuración hija se coloca el atributo “Sobreescribir” con valor “Si” Ejemplo:
  
 	&lt;element Nombre="c1" Sobreescribir=”Si” /&gt;
-
-
-## 8. Hola Mundo
-
-A partir de un ORDEN se requiere generar un plano de salida que tiene la siguiente estructura (Los campos se separan por pipe):
-
-|**ENCABEZADO**  |
-|NOMBRE  | SEGMENTO |
-|--|--|
-|ID  |“1”  |
-|EMISOR |NAD+BY|
-|No. ORDEN |BGM 220|
-|FECHA ORDEN |DTM 137|
-|FECHA ENTREGA |DTM 2|
-|CODIGO PROVEEDOR |NAD+SU|
-
-|**DETALLE**  |
-|NOMBRE  | SEGMENTO |
-|--|--|
-|ID  |“2”|
-|EAN PRODUCTO |LIN|
-|Valor|MOA+203|
-|CANTIDAD ORDENADA |QTY+21|
-
-
-|**RESUMEN**  |
-|NOMBRE  | SEGMENTO |
-|--|--|
-|ID  |“3”|
-|TOTAL |MOA|
-
-Los pasos para generar la salida son:
-
- -  Crear XML de configuración:
- - 
- 
-     &lt;?xml version="1.0" encoding="utf-8" ?&gt;
-    &lt;Configuracion Version="1.0"&gt;
-     &lt;Documento&gt;
-     &lt;Salida Tipo="Plano"&gt;
-     &lt;Estructura Itera="ORDERS_EDI"&gt;
-     &lt;Seccion Nombre="Encabezado" Separador="|"&gt;
-     &lt;element Nombre="ID" default="1" /&gt;
-     &lt;element Nombre="Emisor"
-    xpath="NADs/NAD[CalificadorParte='BY']/IdentificacionParte" /&gt;
-     &lt;element Nombre="NoOrden" xpath="BGM/NumeroDocumento" /&gt;
-     &lt;element Nombre="Fecha_Orden"
-    xpath="DTMs/DTM[CalificadorFechaHoraPeriodo='137']/FechaHoraPeriodo" /&gt;
-     &lt;element Nombre="Fecha_Entrega"
-    xpath="DTMs/DTM[CalificadorFechaHoraPeriodo='2']/FechaHoraPeriodo" /&gt;
-     &lt;element Nombre="Receptor"
-    xpath="NADs/NAD[CalificadorParte='SU']/IdentificacionParte" /&gt;
-     &lt;/Seccion&gt;
-     &lt;Seccion Nombre="ValoresProducto" Separador="|" Itera="LINs/LIN"&gt;
-     &lt;element Nombre="ID" default="2"/&gt;
-     &lt;element Nombre="EAN" xpath="NumeroItem"/&gt;
-     &lt;element Nombre="Valor"
-    xpath="MOAsINVOIC/MOA[TipoCantidadMonetaria='203']/CantidadMonetaria"/&gt;
-     &lt;element Nombre="Cantidad"
-    xpath="QTYsPRICAT/QTY[CalificadorCantidad='21']/Cantidad"/&gt;
-     &lt;/Seccion&gt;
-     &lt;Seccion Nombre="Resumen" Separador="|"&gt;
-     &lt;element Nombre="ID" default="3" /&gt;
-     &lt;element Nombre="Total"
-    xpath="UNS/MOAs/MOA[TipoCantidadMonetaria='116']/CantidadMonetaria" /&gt;
-     &lt;/Seccion&gt;
-     &lt;/Estructura&gt;
-     &lt;/Salida&gt;
-     &lt;/Documento&gt;
-    &lt;/Configuracion&gt;
-    
- -  Definimos la configuración de mapeo e invocamos a OwlHandler:
- -   
- 
-
-        OwlSettings config = new OwlSettings();
-            config.PathConfig = @"XML_EDI\config.xml";
-            OwlHandler handler = new OwlHandler(config);
-            try
-            {
-             handler.LoadConfigMap();
-             handler.LoadInput(entrada);
-            }
-            catch (OwlSectionException e)
-            {
-            }
-            catch (OwlException e)
-            {
-            }
-    
-    
-     -  Creamos el objeto de salida y llamamos al método que escribe los  datos:
-    FlatFileOutput salida = new FlatFileOutput();
-    try
-    {
-     int intContador = 1;
-     foreach (string strContenido in handler.WriteOutput(salida))
-     {
-    
-     }
-    }
-    catch (OwlElementException e)
-    {
-    }
-    catch (OwlSectionException e)
-    {
-    }
-    catch (OwlException e)
-    {
-    }
-
