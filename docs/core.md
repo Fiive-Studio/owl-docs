@@ -731,39 +731,41 @@ También desde el método podemos cancelar la escritura de la sección, se hace 
 
 Por defecto ninguna sección genera evento, pero si se requiere modificar el comportamiento se puede hacer de la siguiente forma:
 
-    &lt;Estructura SeccionEvento="Si"&gt;
+    <structure event-section="true" />
 
 Si se requiere solo modificar el comportamiento de una sola sección se realiza de la siguiente forma:
 
-    &lt;Seccion Nombre="Campos" Evento="Si"&gt;
+    <section name="name" event="true">
 
- - **AlphanumericElementProcessed:** Este evento se produce cuando se termina de procesar un elemento de tipo Alfanumerico y en él podemos modificar las propiedades configurables en el Owl Output Config y marcar el elemento con error.
+ - **AlphanumericElementProcessed:** Este evento se produce cuando se termina de procesar un elemento de tipo Alfanumerico y en él podemos modificar las propiedades configurables en el Owl Output Config o marcar el elemento con error.
  
- - **NumericElementProcessed:** Este evento se produce cuando se termina de procesar un elemento de tipo Numerico y en él podemos modificar las propiedades configurables en el Owl Output Config y marcar el elemento con error.
+ - **NumericElementProcessed:** Este evento se produce cuando se termina de procesar un elemento de tipo Numerico y en él podemos modificar las propiedades configurables en el Owl Output Config o marcar el elemento con error.
 
 También desde el método podemos establecer si el campo tiene error o modificar su valor, se hace de la siguiente forma:
 
-    static void Output_AlphanumericElementProcessed(object sender, OutputElementEventArgs e) { e.XOMLConfig.ElementWithError = true; e.XOMLConfig.Valor = "nuevovalor"; }
+    static void Output_AlphanumericElementProcessed(object sender, OutputElementEventArgs e) { 
+      e.XOMLConfig.ElementWithError = true;
+      e.XOMLConfig.Valor = "nuevovalor"; 
+    }
  
- Al colocarlo en error el campo queda en blanco
+Al colocarlo en error el campo queda en blanco
 
 Por defecto ningún elemento en la configuración genera evento, pero si se requiere modificar el comportamiento se puede hacer de la siguiente forma:
 
-    &lt;Estructura elementEvento="No" elementEventoSeccion="No"&gt;
+    <structure event-element="true" event-element-section="true">
 
 Si se requiere modificar solo el comportamiento de un solo elemento se configura de la siguiente forma:
 
-    &lt;element Nombre="Campo" Evento="No" EventoSeccion="Si" /&gt;
-
+    <element name="name" event="false" event-section="true" /&gt;
 
 ### 6.3 FlatFileOutput
 
- Define un archivo plano de salida, adicional a la configuración estándar soporta los siguientes atributos. Configuración a nivel de Sección:
+Define un archivo plano de salida, adicional a la configuración estándar soporta los siguientes atributos. Configuración a nivel de Sección:
    
 | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|Separador |String  |X|X|Separador utilizado para separar los elementos|
-|QuitarSeparadoresFinal |Boolean |X|X|Indica si se quitan los separadores al final de la sección|
+|separator |String  |X|X|Separador utilizado para separar los elementos|
+|remove-final-separators |Boolean |X|X|Indica si se quitan los separadores al final de la sección|
 
 ### 6.4 EDIOutput 
 
@@ -773,15 +775,14 @@ Configuración a nivel de Estructura:
    
 | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|SeparadorSubelements|Char  |X|X|Separador de subelementos|
-|Separadorelements |Char |X|X|Separador de elementos|
-|TerminadorSegmento |Char |X|X|Terminador de segmentos|
-|CaracterEscape |Char |X|X|Carácter de escape|
+|element-separator|Char  |X|X|Separador de elementos|
+|element-group-separator |Char |X|X|Separador de grupos|
+|segment-separator |Char |X|X|Separador de segmentos|
+|release-char |Char |X|X|Carácter de escape|
 
-Para EDIOutput son de suma importancia los nombres que se coloquen a las Secciones y elements de la estructura de salida dentro del Owl Output Config.
+Para EDIOutput son de suma importancia los nombres que se coloquen a las Secciones y Elementos de la estructura de salida dentro del Owl Output Config.
 
 **NOTA: Owl no tiene un orden de generación de documentos EDI, el EDI se genera de acuerdo a como esta en el Owl Output Config.**
-
 
 ### 6.5 ANSIOutput 
 
@@ -791,14 +792,13 @@ Configuración a nivel de Estructura:
 
   | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|Separadorelements|Char|X|X|Separador de elementos|
-|TerminadorSegmento|Char |X|X|Terminador de segmentos|
-|CaracterEscape |Char |X|X|Carácter de escape|
+|element-separator|Char|X|X|Separador de elementos|
+|segment-separator|Char |X|X|Separador de segmentos|
+|release-char |Char |X|X|Carácter de escape|
 
-Para ANSISalida son de suma importancia los nombres que se coloquen a las Secciones y elements de la estructura de salida dentro del Owl Output Config.
+Para ANSIOutput son de suma importancia los nombres que se coloquen a las Secciones y Elementos de la estructura de salida dentro del Owl Output Config.
 
 **NOTA: Owl no tiene un orden de generación de documentos ANSI, el ANSI se genera de acuerdo a como esta en el Owl Output Config.**
-
 
 ### 6.6 XMLOutput
 
@@ -806,24 +806,24 @@ Define un XML de salida, adicional a la configuración estándar soporta los sig
 
 Configuración a nivel de Estructura:
 
- | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
+| **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|XMLValor|String|X|X|Nombre del elemento que contiene el valor interno de las etiquetas|
-|EscaparCaracteres|Boolean |X|X|Indica si se escapan los caracteres Xml reservados en los valores de los elemento, por defecto es “Si” (Afecta todos los elementos)|
+|xml-release-chars|Boolean |X|X|Indica si se escapan los caracteres Xml reservados en los valores de los elemento, por defecto es true (Afecta todos los elementos)|
 
 Configuración a nivel de Sección:
 
+| **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
+|--|--|--|--|--|
+|xml-tag-type|Enum (simple, complex, comment y cdata)|X|X|Tipo de etiqueta Xml que se va a generar, por defecto es complex|
+
+Configuración a nivel de Elemento:
+
  | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|TipoEtiqueta|Enum (Compuesta, Simple, Apertura, Cierre, Comentario y CData)|X|X|Tipo de etiqueta Xml que se va a generar, por defecto es “Compuesta”|
-
-Configuración a nivel de element:
-
- | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
-|--|--|--|--|--|
-|TipoelementXml|Enum (Comentario y CData)|X|X|Tipo de etiqueta Xml que se va a generar, por defecto es “Compuesta”|
-|EscaparCaracteres|Boolean|X|X|Indica si se escapan los caracteres Xml reservados en el valor del elemento (Afecta solo ese elemento)|
-|ValorRequerido|Boolean|X|X|Indica si, en caso de no tener valor el elemento, no se genera el atributo|
+|release-chars|Boolean|X|X|Indica si se escapan los caracteres Xml reservados en el valor del elemento (Afecta solo ese elemento)|
+|xml-value|Boolean|X|X|Indica si el elemento es un valor (true) o un atributo (false), por defecto es false|
+|mandatory-value|Boolean|X|X|Indica si, en caso de no tener valor el elemento, no se genera el atributo (solo aplica si xml-value es igual a false)|
+|xml-element-type|Enum (comment y cdata)|X|X|Tipo de valor que se va a generar (solo aplica si xml-value es igual a true), no tiene valor por defecto, sino se coloca se genera el texto solo|
 
 ### 6.7 SQLOutput 
 
@@ -831,66 +831,72 @@ Define un SQL de salida, adicional a la configuración estándar soporta los sig
 
 Configuración a nivel de Sección:
 
- | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
+| **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|TipoSQL|Enum (Select, Insert, Update y Delete)|X|X|Tipo de SQL que se va a generar, por defecto es “Select”|
+|sql-type|Enum (select, insert, update y delete)|X|X|Tipo de SQL que se va a generar, por defecto es “select”|
 
 Configuración a nivel de element:
 
- | **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
+| **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
 |--|--|--|--|--|
-|TipoelementSQL|Enum (Select y Where)|X|X|Indica si el elemento hace parte del Select o del Where, no apica para Insert. - Para Delete todos los elementos son Where - Para Update solo aplica Where, los demás campos son los que se actualicen.|
-|TipoWhere|Enum (Equal, Different, Like, In, Between y NotBetween|X|X|Cuando el TipoelementSQL es de tipo Where indica el operador lógico con el que queda el valor.|
-|ValorRequerido|Boolean|X|X|Indica si, en caso de no tener valor el elemento, se genera como NULL.|
-
+|sql-element-type|Enum (Select y Where)|X|X|Indica si el elemento hace parte del Select o del Where, no apica para Insert. - Para Delete todos los elementos son Where - Para Update solo aplica Where, los demás campos son los que se actualicen.|
+|where-type|Enum (Equal, Different, Like, In, Between y NotBetween|X|X|Cuando el TipoelementSQL es de tipo Where indica el operador lógico con el que queda el valor.|
+|mandatory-value|Boolean|X|X|En caso de no tener valor el elemento, si se coloca true se genera una cadena vacia, si se coloca false se genera como NULL.|
 
 ### 6.8 JsonOutput
-Define un Json de salida, no tiene configuración adicional a la estándar. 
+
+Define un Json de salida, adicional a la configuración estándar soporta los siguientes atributos.
+
+Configuración a nivel de Sección:
+
+| **Propiedad** | **Tipo Dato** |**Atributo** |**Etiqueta**|**Descripción**|
+|--|--|--|--|--|
+|json-array|Boolean|X|X|Indica si la seccion se genera como un array (solo aplica para las secciones que no tienen repeticiones, cuando una sección tiene repetición siempre se genera como array)|
+
 El Json se define de la siguiente forma:
 
  - Seccion: Objeto Json.
  - Seccion con Iteración o Repetición: Array Json.
- - element; Propiedad.
-
-                           
+ - Elemento: Propiedad.
+                   
 ## 7. Herencia de Configuraciones.
 
 Teniendo en cuenta que muchas configuraciones son muy similares y muchas veces solo se cambia el valor de un campo o una sección, Owl brinda la posibilidad de que una estructura de salida pueda heredar de otra estructura de salida, para realizar esto se debe hacer lo siguiente:  
 
 Tener una configuración Base.
  
-	&lt;Estructura Id="Principal" Itera="EFACT_D98B_ORDERS"&gt;
-     &lt;Seccion Nombre="Encabezado" Separador="|"&gt;
-     &lt;element Nombre="c1" default="1" length="2" /&gt;
-     &lt;element Nombre="emisor" xpath="NADLoop1/NAD[@NAD='BY']/C082/@C08201" /&gt;
-     &lt;element Nombre="receptor" xpath="NADLoop11/NAD1[@NAD01='SU']/C0591/@C05901" /&gt;
-     &lt;/Seccion&gt;
-     &lt;Seccion Nombre="Encabezado2" Separador="|"&gt;
-     &lt;element Nombre="c1" default="1" /&gt;
-     &lt;element Nombre="emisor" xpath="NADLoop1/NAD[@NAD='BY']/C082/@C08201" /&gt;
-     &lt;/Seccion&gt;
-     &lt;Seccion Nombre="Detalle" Separador="|" Itera="LINLoop1"&gt;
-     &lt;element Nombre="c1" default="2" /&gt;
-     &lt;element Nombre="c2" key="CONSECUTIVO_ITERA" /&gt;
-     &lt;element Nombre="c3" xpath="LIN/C212/@C21201" /&gt;
-     &lt;/Seccion&gt;
-    &lt;/Estructura&gt;
+    <?xml version="1.0" encoding="utf-8"?>
+    <owl>
+      <structure id="parent">
+        <section name="header">
+          <element name="c1" default="1" />
+          <element name="c2" default="2" />
+        </section>
+        <section name="detail" repetitions="3">
+          <element name="c1" default="1" />
+          <element name="c2" default="2" />
+        </section>
+      </structure>
+    </owl>
 
 Es obligatorio que la estructura que va a servir como Base tenga configurado el atributo “Id” de lo contrario el Owl genera una excepción.
 
 Crear la estructura Hija
  
-     &lt;Estructura Id="Secundario" Base="Principal"&gt;
-     &lt;Seccion Nombre="Encabezado" Separador="@"&gt;
-     &lt;element Nombre="c1" default="nuevovalor" Oculto="Si" /&gt;
-     &lt;/Seccion&gt;
-    &lt;/Estructura&gt;
+    <?xml version="1.0" encoding="utf-8"?>
+    <owl>
+      <structure id="child" base="parent">
+        <section name="header">
+          <element name="c3" default="3" />
+        </section>
+      </structure>
+    </owl>
 
-Es obligatorio que la estructura hija tenga configurado los atributos “Id” y “Base”, en la Base se debe colocar el Id de la estructura Base, la estructura base se configura por medio de OwlSettings con las propiedades PathConfigBase o XmlConfigBase.
+Es obligatorio que la estructura hija tenga configurado los atributos “id” y “base”, en la Base se debe colocar el id de la estructura Base, la estructura base se configura por medio de OwlSettings con las propiedades PathConfigBase o XmlConfigBase.
 
  - En la estructura hija se pueden modificar los atributos de la etiqueta Estructura de la Base.
  
- -  En la estructura hija se deben configurar solo las secciones y elementos de la base que se van a modificar, para hacer la relación de que sección o elemento es el que se está modificando se usa el id o el nombre.
+ -  En la estructura hija se deben configurar solo las secciones y elementos de la base que se van a modificar, para hacer la relación de que sección o elemento es el que se está modificando se usa el id o el name.
  
  - Si se configuran Requeridos siempre se dejan los de la configuración hija.
 
@@ -898,10 +904,10 @@ Las opciones para reemplazar secciones y elementos en la configuración hija son
 
 Si solo se quieren agregar o actualizar atributos se coloca el elemento o sección con los nuevos valores
 
-Si se desea cambiar la ubicación de la sección o un elemento se hace por medio de los atributos AntesDe y DespuesDe, donde se coloca el id de la sección o elemento que servirá como reference para dar la nueva ubicación.
+Si se desea cambiar la ubicación de la sección o un elemento se hace por medio de los atributos before y after, donde se coloca el id de la sección o elemento que servirá como referencia para dar la nueva ubicación.
 
-Si se agrega una nueva sección por defecto se coloca al final, en caso de requerir dar ubicación se utilizan los atributos AntesDe o DespuesDe
+Si se agrega una nueva sección por defecto se coloca al final, en caso de requerir dar ubicación se utilizan los atributos before o after
 
-Si se desea sobreescribir la sección o el elemento completo en la configuración hija se coloca el atributo “Sobreescribir” con valor “Si” Ejemplo:
+Si se desea sobreescribir la sección o el elemento completo en la configuración hija se coloca el atributo “overwrite” con valor “true”. Ejemplo:
  
-	&lt;element Nombre="c1" Sobreescribir=”Si” /&gt;
+	<element name="name" overwrite=”true” />
