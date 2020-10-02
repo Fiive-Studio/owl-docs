@@ -42,7 +42,7 @@ En este archivo es donde se define la estructura del archivo a cargar, el siguie
 
 ### 2.2 OwlConfig
 
-Clase que representa la configuración en objetos .Net
+Clase que representa la configuración en objetos .Net, cada adaptador implementa su propia clase ()
 
     XmlDocument xml = new XmlDocument();
     xml.Load(@"C:\path\owl.xml");
