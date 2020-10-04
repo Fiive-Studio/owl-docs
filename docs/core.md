@@ -34,21 +34,21 @@ Para poder trabajar con Owl se requiere lo siguiente:
 
 En este archivo es donde se define la estructura del archivo a generar con el mapeo y validaciones requeridas, el siguiente ejemplo muestra un archivo de configuración:
 
-    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
-    &lt;owl&gt;
-     &lt;structure&gt;
-        &lt;section name="Encabezado" separator=","&gt;
-            &lt;element name="Id" Prededefaultterminado="H" /&gt;
-            &lt;element name="Emisor" /&gt;
-            &lt;element name="Receptor" /&gt;
-        &lt;/section&gt;
-        &lt;section name="Detalle" itera="LINs"&gt;
-            &lt;element name="Id" default="D" /&gt;
-            &lt;element name="Producto" /&gt;
-            &lt;element name="Cantidad" /&gt;
-        &lt;/section&gt;
-     &lt;/structure&gt;
-    &lt;/owl&gt;
+    <?xml version="1.0" encoding="utf-8" ?>
+    <owl>
+     <structure>
+        <section name="header" separator=",">
+            <element name="id" default="H" />
+            <element name="field_1" />
+            <element name="field_2" />
+        </section>
+        <section name="detail" itera="details">
+            <element name="id" default="D" />
+            <element name="field_1" />
+            <element name="field_2" />
+        </section>
+     </structure>
+    </owl>
 
 ### 2.2 OwlSettings
 
@@ -76,7 +76,7 @@ Clase que se encarga de controlar todo el proceso de transformación de datos, p
     Owl = new OwlHandler(settings);
     Owl.LoadConfigMap();
     Owl.LoadInput(new XmlInput(@"D:\ruta\file.xml"));
-    foreach (GenericOutputValue value in Owl.WriteOutput(new FlatFileOutput())) { Proceso }
+    foreach (GenericOutputValue value in Owl.WriteOutput(new FlatFileOutput())) { Process }
 
 Adicional si se requiere generar una instancia de la configuración se puede realizar asignando la propiedad Instance igual a true en el objeto OwlSettings, al asignar dicho valor indicamos que solo se va a generar un archivo de muestra, por lo tanto Owl no realiza validaciones, no genera eventos y solo se van a tomar en cuenta las Owl Keywords default, variable y key para los valores de los elementos; los demás valores van a ser el Nombre que se configure al elemento.
 
